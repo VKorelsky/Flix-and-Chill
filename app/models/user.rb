@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_many :projections
   has_many :bookings
+  has_many :reviews, through: :bookings
+
   # validations
   # Devise validates password and email --> can't be blank
 
