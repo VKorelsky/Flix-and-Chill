@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :projections
+  has_many :bookings
   # validations
   # Devise validates password and email --> can't be blank
 
