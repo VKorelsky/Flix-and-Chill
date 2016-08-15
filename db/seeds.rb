@@ -5,11 +5,19 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+ # require 'Date'
 
-User.create(email: "ronald@fake.com", password: "ronald", first_name: "ronald")
-User.create(email: "daisy@fake.com", password: "daisy", first_name: "daisy")
-User.create(email: "batman@fake.com", password: "batman", first_name: "batman")
+date = Date.today
 
+ronald = User.create(email: "ronald@fake.com", password: "ronald", first_name: "Ronald")
+daisy = User.create(email: "daisy@fake.com", password: "daisyisthebitch", first_name: "Daisy")
+batman = User.create(email: "batman@fake.com", password: "batman", first_name: "Batman")
+
+Projection.create(user: ronald, date: date, address: "16 villa gaudelet", movie: "Lord of the rings")
+
+Booking.create(projection_id: 1, status: "accepted", user_id: 2)
+
+Review.create(content: "Loved it was super super super super amazing", rating: 5, booking_id: 1)
 
 
 
