@@ -6,10 +6,13 @@
       <% if current_user == @projection.user %>
         <%= link_to "Edit", edit_projection_path(@projection) %>
       <% end %>
+      <% if @projection.photo? %>
+        <%= cl_image_tag @projection.photo.path, width: 200, height: 300, crop: :fill %>
       <h4>Address: <%= @projection.address %></h4>
       <h4>Date: <%= @projection.date %></h4>
       <h4>Capacity: <%= @projection.capacity %></h4>
       <h4>Organizer: <%= @projection.user.first_name %></h4>
+
       <ul>
         <% @reviews.each do |review| %>
           <li>

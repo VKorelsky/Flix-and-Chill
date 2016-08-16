@@ -8,6 +8,7 @@
                               end_month: @user.birth_date.month,
                                 order: [:month, :year]%>
         <%= f.input :email %>
+        <%= f.input :photo, as: :attachinary %>
         <%= f.button :submit, "Submit changes", class: "btn btn-primary" %>
       <% end %>
 </div>

@@ -39,6 +39,6 @@ class ProjectionsController < ApplicationController
   end
 
   def projection_params
-    params.require(:projection).permit(:name, :address, :movie, :date, :capacity)
+    params.require(:projection).permit(:name, :address, :movie, :date, :capacity, :photo)
   end
 end
