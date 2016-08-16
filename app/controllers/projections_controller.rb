@@ -6,7 +6,7 @@ class ProjectionsController < ApplicationController
   end
 
   def show
-    @projection = Projection.find(params[:id])
+    set_projections
   end
 
   def new
@@ -20,11 +20,20 @@ class ProjectionsController < ApplicationController
     redirect_to projection_path(@projection)
   end
 
+  def edit
+    set_projections
+  end
+
+  def update
+    @projection = Projection.update(projection_params)
+    redirect_to projection_path(@projection)
+  end
+
   private
 
-  # def set_projections
-  #    @projection = Projection.find(params[:id])
-  # end
+  def set_projections
+    @projection = Projection.find(params[:id])
+  end
 
   def projection_params
     params.require(:projection).permit(:name, :address, :movie, :date, :capacity)
