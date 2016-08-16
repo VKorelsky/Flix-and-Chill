@@ -1,5 +1,5 @@
 class ProjectionsController < ApplicationController
-  # before_action :set_projections, only: [:new, :create]
+  # before_action :set_projections, only: [:index, :show]
 
   def new
     @projection = Projection.new
