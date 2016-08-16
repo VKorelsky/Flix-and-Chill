@@ -1,0 +1,27 @@
+<div class="wrapper">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Create a new projection</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <%= simple_form_for(@projection) do |f| %>
+          <%= f.error_notification %>
+
+          <%= f.input :name %>
+          <%= f.input :movie %>
+          <%= f.input :address %>
+          <%= f.input :date %>
+          <%= f.input :capacity %>
+        <!-- rajouter user id ? to put it -->
+          <%= f.button :submit %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
