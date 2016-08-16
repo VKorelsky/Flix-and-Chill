@@ -4,6 +4,9 @@
   <dt>Birth Date</dt>
   <%= @user.birth_date %>
 
+  <dt>Email</dt>
+  <%= @user.email %>
+
   <dt>Upcoming projections</dt>
   <% @user.projections.each do |projection|%>
     <%= "#{projection.movie} at #{projection.address}" %>
@@ -20,6 +23,9 @@
     <%= review.content %>
   <% end %>
 
-  <%= link_to "edit profile", edit_user_path(@user)%>
+ <!-- ONLY IF USER IS THE ACTUAL ONE -->
+  <%= link_to "edit profile", edit_user_path(@user)%> <br>
+  <%= link_to "add a new projection", edit_user_path(@user)%>
+
 </dl>
 
