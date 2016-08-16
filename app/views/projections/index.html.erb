@@ -1,4 +1,5 @@
 <div class="container">
+  <h2><%= link_to "Créer une projection", new_projection_path %></h2>
   <ul class="list-group">
     <h3 style="height: 50px">Futures séances (<%= @futur_projections.length %>)</h3>
     <% @futur_projections.each do |projection| %>
@@ -15,6 +16,12 @@
             <% projection.bookings.each do |booking| %>
               <%= link_to "#{booking.user.first_name} #{booking.user.last_name}", "#" %>
               </br>
+            <% end %>
+          </li>
+          <li class="list-group-item">
+          <!-- TODO Check on current_user then display no button if already participant-->
+            <%= simple_form_for @new_booking, url_for(:action => 'create_booking', :controller => 'projections') do |f| %>
+              <%= f.button :submit, label: "Je participe" %>
             <% end %>
           </li>
         </ul>
