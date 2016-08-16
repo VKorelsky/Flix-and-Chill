@@ -1,0 +1,30 @@
+<ul>
+  <div style="height: 50px; background: yellow">Futures séances</div>
+  <% @futur_projections.each do |projection| %>
+
+    <li>
+      <ul>
+        <!--   TODO add projection.name -->
+        <li>On regardera : <%= projection.movie %></li>
+        <li>Ou ? <%= projection.address %></li>
+        <li>Nb de participants : <%= projection.bookings.length %></li>
+        <li>Places encore disponibles : <%= projection.capacity - projection.bookings.length %></li>
+        <li>Quand ? <%= projection.date %></li>
+      </ul>
+    </li>
+    </br>
+  <% end %>
+  <div style="height: 50px; background: yellow">Séances passées</div>
+  <% @past_projections.each do |projection| %>
+    <li>
+      <ul>
+        <!--   TODO add projection.name -->
+        <li>On a vu : <%= projection.movie %></li>
+        <li>Ou ? <%= projection.address %></li>
+        <li>Nb de participants : <%= projection.bookings.length %></li>
+        <li>C'était quand ? <%= projection.date %></li>
+      </ul>
+    </li>
+    </br>
+  <% end %>
+</ul>
