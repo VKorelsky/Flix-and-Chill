@@ -1,14 +1,31 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4 col-sm-offset-4">
+    <div class="col-sm-8 col-sm-offset-2">
+      <%= link_to "< All projections", projections_path %>
       <h1><%= @projection.name %></h1>
+      <% if current_user == @projection.user %>
+        <%= link_to "Edit", edit_projection_path(@projection) %>
+      <% end %>
       <% if @projection.photo? %>
         <%= cl_image_tag @projection.photo.path, width: 200, height: 300, crop: :fill %>
-      <% end %>
       <h4>Address: <%= @projection.address %></h4>
       <h4>Date: <%= @projection.date %></h4>
       <h4>Capacity: <%= @projection.capacity %></h4>
       <h4>Organizer: <%= @projection.user.first_name %></h4>
+
+      <ul>
+        <% @reviews.each do |review| %>
+          <li>
+            <ul>
+              <li><%= review.booking.user.first_name + " " + review.booking.user.last_name %></li>
+              <li><%= review.content %></li>
+              <li><%= "X" * review.rating %></li>
+              <li><%= review.created_at %></li>
+            </ul>
+            </br>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>

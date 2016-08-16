@@ -8,6 +8,7 @@ class ProjectionsController < ApplicationController
 
   def show
     set_projections
+    @reviews = @projection.reviews
   end
 
   def new
