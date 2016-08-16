@@ -1,0 +1,40 @@
+.projection-card{
+  display: flex;
+  margin: 10px 0;
+  justify-content: space-around;
+  align-items: center;
+  transition: all 0.3s ease;
+  background-color: white;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.item-left{
+  transition: all 0.5s ease;
+}
+
+.item-center{
+  width: 250px;
+}
+
+.item-right{
+  text-align: left;
+  border-left: 4px dashed black;
+  padding-left: 27px;
+}
+
+.item:hover{
+  background: #f7f7fa;
+  cursor: pointer;
+}
+
+.projection-date {
+  border: 2px solid white;
+  width: 50%;
+  margin-left: 7px;
+  margin-bottom: 7px;
+    p{
+      padding: 0px;
+      margin: 0px;
+    }
+}

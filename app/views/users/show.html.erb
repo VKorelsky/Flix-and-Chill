@@ -1,6 +1,10 @@
 <h1 class="text-center"><%= @user.first_name %></h1>
 
 <dl class="text-center">
+  <% if @user.photo? %>
+    <%= cl_image_tag @user.photo.path, width: 200, height: 300, crop: :fill %>
+  <% end %>
+
   <dt>Birth Date</dt>
   <%= @user.birth_date %>
 

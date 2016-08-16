@@ -1,2 +1,9 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url(<%= image_path 'rooftop_projection.jpg' %>);">
+  <div class="banner-content">
+    <h1>Flix'n'Chill</h1>
+    <p>Enjoy the best of Netflix in the best fucking places</p>
+    <%= link_to "Watch", projections_path, class: "btn btn-danger btn-lg" %>
+  </div>
+</div>
+
+linear-gradient

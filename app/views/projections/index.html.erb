@@ -1,51 +1,24 @@
-<div class="container">
-  <h2><%= link_to "Créer une projection", new_projection_path %></h2>
-  <ul class="list-group">
-    <h3 style="height: 50px">Futures séances (<%= @futur_projections.length %>)</h3>
+<div class="wrapper-grey">
+  <div class="container">
     <% @futur_projections.each do |projection| %>
-
-      <li class="list-group-item">
-        <ul class="list-group">
-          <li class="list-group-item"><h3><%= link_to projection.name, projection_path(projection) %></h3></li>
-          <li class="list-group-item">On regardera : <%= projection.movie %></li>
-          <li class="list-group-item">Ou ? <%= projection.address %></li>
-          <li class="list-group-item">Places encore disponibles : <%= projection.capacity - projection.bookings.length %></li>
-          <li class="list-group-item">Quand ? <%= projection.date %></li>
-          <li class="list-group-item">Nb de participants : <%= projection.bookings.length %></li>
-          <li class="list-group-item">
-            <% projection.bookings.each do |booking| %>
-              <%= link_to "#{booking.user.first_name} #{booking.user.last_name}", "#" %>
-              </br>
-            <% end %>
-          </li>
-          <% if user_signed_in? %>
-          <li class="list-group-item">
-          <!-- TODO Check on current_user then display no button if already participant-->
-            <%= simple_form_for @new_booking do |f| %>
-              <%= f.input :projection_id, as: :hidden, input_html: { value: projection.id } %>
-              <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>
-              <%= f.button :submit, "Je participe" %>
-            <% end %>
-          </li>
-          <% end %>
-        </ul>
-      </li>
-      </br>
+    <div class="projection-card">
+      <div class="item-left" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('http://placehold.it/150x150');">
+        <h2><%= projection.movie %></h2>
+        <div class="projection-date text-center">
+          <p><%= Date::MONTHNAMES[projection.date.month] %></p>
+          <br>
+          <p><%= projection.date.day %></p>
+        </div>
+      </div>
+      <div class="item-center">
+        <h2><%= projection.name %></h2>
+        <p><%= projection.address %></p>
+      </div>
+      <div class="item-right">
+        <h2>projection.start_time</h2>
+        <button type="button" class="btn btn-default">Default</button>
+      </div>
+    </div>
     <% end %>
-  </ul>
-  <ul class="list-group">
-    <h3 style="height: 50px">Séances passées (<%= @past_projections.length %>)</h3>
-    <% @past_projections.each do |projection| %>
-      <li class="list-group-item">
-        <ul class="list-group">
-          <li class="list-group-item"><h3><%= projection.name %></h3></li>
-          <li class="list-group-item">On a vu : <%= projection.movie %></li>
-          <li class="list-group-item">Ou ? <%= projection.address %></li>
-          <li class="list-group-item">Nb de participants : <%= projection.bookings.length %></li>
-          <li class="list-group-item">C'était quand ? <%= projection.date %></li>
-        </ul>
-      </li>
-      </br>
-    <% end %>
-  </ul>
+  </div>
 </div>
