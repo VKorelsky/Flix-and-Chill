@@ -1,0 +1,34 @@
+<div class="container">
+  <ul class="list-group">
+    <h3 style="height: 50px">Futures séances (<%= @futur_projections.length %>)</h3>
+    <% @futur_projections.each do |projection| %>
+
+      <li class="list-group-item">
+        <ul class="list-group">
+          <!--   TODO add projection.name -->
+          <li class="list-group-item">On regardera : <%= projection.movie %></li>
+          <li class="list-group-item">Ou ? <%= projection.address %></li>
+          <li class="list-group-item">Nb de participants : <%= projection.bookings.length %></li>
+          <li class="list-group-item">Places encore disponibles : <%= projection.capacity - projection.bookings.length %></li>
+          <li class="list-group-item">Quand ? <%= projection.date %></li>
+        </ul>
+      </li>
+      </br>
+    <% end %>
+  </ul>
+  <ul class="list-group">
+    <h3 style="height: 50px">Séances passées (<%= @past_projections.length %>)</h3>
+    <% @past_projections.each do |projection| %>
+      <li class="list-group-item">
+        <ul class="list-group">
+          <!--   TODO add projection.name -->
+          <li class="list-group-item">On a vu : <%= projection.movie %></li>
+          <li class="list-group-item">Ou ? <%= projection.address %></li>
+          <li class="list-group-item">Nb de participants : <%= projection.bookings.length %></li>
+          <li class="list-group-item">C'était quand ? <%= projection.date %></li>
+        </ul>
+      </li>
+      </br>
+    <% end %>
+  </ul>
+</div>

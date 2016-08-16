@@ -1,5 +1,9 @@
 class ProjectionsController < ApplicationController
-  # before_action :set_projections, only: [:index, :show]
+  def index
+    today = Date.today
+    @futur_projections = Projection.where("date > ?", today).order(date: :desc)
+    @past_projections = Projection.where("date > ?", today).order(date: :desc)
+
   def show
     @projection = Projection.find(params[:id])
   end
