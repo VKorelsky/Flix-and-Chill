@@ -3,9 +3,10 @@ class ProjectionsController < ApplicationController
     today = Date.today
     @futur_projections = Projection.where("date > ?", today).order(date: :desc)
     @past_projections = Projection.where("date > ?", today).order(date: :desc)
+  end
 
   def show
-    @projection = Projection.find(params[:id])
+    set_projections
   end
 
   def new
@@ -14,16 +15,25 @@ class ProjectionsController < ApplicationController
 
   def create
     @projection = Projection.new(projection_params)
-    # @projection[:user] = @user => il faut remplir le user_id
+    @projection.user = current_user
     @projection.save
+    redirect_to projection_path(@projection)
+  end
+
+  def edit
+    set_projections
+  end
+
+  def update
+    @projection = Projection.update(projection_params)
     redirect_to projection_path(@projection)
   end
 
   private
 
-  # def set_projections
-  #    @projection = Projection.find(params[:id])
-  # end
+  def set_projections
+    @projection = Projection.find(params[:id])
+  end
 
   def projection_params
     params.require(:projection).permit(:name, :address, :movie, :date, :capacity)
