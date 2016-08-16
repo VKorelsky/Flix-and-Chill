@@ -12,7 +12,6 @@ Projection.destroy_all
 User.destroy_all
 
 
-
 films = [
 "Forrest Gump",
 "La Ligne verte",
