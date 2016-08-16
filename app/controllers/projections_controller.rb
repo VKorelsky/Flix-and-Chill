@@ -11,12 +11,11 @@ class ProjectionsController < ApplicationController
 
   def new
     @projection = Projection.new
-    # TODO: @user = current_user
   end
 
   def create
     @projection = Projection.new(projection_params)
-    @projection.user = User.create(first_name: "Billy")
+    @projection.user = current_user
     @projection.save
     redirect_to projection_path(@projection)
   end
