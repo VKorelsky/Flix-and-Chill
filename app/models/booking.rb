@@ -6,4 +6,5 @@ class Booking < ApplicationRecord
   has_one :review
 
   #validations
+  validates :user, uniqueness: { scope: :projection, message: "You already participate to this event" }
 end
