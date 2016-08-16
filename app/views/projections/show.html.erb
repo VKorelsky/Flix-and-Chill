@@ -26,8 +26,8 @@
             <li>
               <%= simple_form_for @new_review do |f| %>
                 <%= f.error_notification %>
-                <% booking = Booking.where(user: current_user, projection: @projection).first %>
-                <%= f.input :booking_id, as: :hidden, input_html: { value: booking.id } %>
+                <% @booking = Booking.where(user: current_user, projection: @projection).first %>
+                <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
                 <%= f.input :content %>
                 <%= f.input :rating %>
                 <%= f.button :submit, "Review" %>
@@ -39,9 +39,23 @@
           <li>
             <ul>
               <li><%= review.booking.user.first_name + " " + review.booking.user.last_name %></li>
-              <li><%= review.content %></li>
-              <li><%= "X" * review.rating %></li>
               <li><%= review.created_at %></li>
+              <% if user_signed_in? && review.booking.user == current_user %>
+                <li>
+                  <%= simple_form_for review do |f| %>
+                    <%= f.error_notification %>
+                    <%= f.input :id, as: :hidden, input_html: { value: review.id } %>
+                    <% @booking = Booking.where(user: current_user, projection: @projection).first %>
+                    <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
+                    <%= f.input :content %>
+                    <%= f.input :rating %>
+                    <%= f.button :submit, "Edit review" %>
+                  <% end %>
+                </li>
+              <% else %>
+                <li><%= review.content %></li>
+                <li><%= "X" * review.rating %></li>
+              <% end %>
             </ul>
             </br>
           </li>

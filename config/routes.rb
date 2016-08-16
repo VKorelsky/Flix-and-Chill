@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :projections, only: [:new, :create, :show, :index, :edit, :update]
   resources :bookings, only: [:create]
   resources :users, only: [:show, :edit, :update]
-  resources :reviews, only: [:create]
+  resources :reviews, only: [:create, :update]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
