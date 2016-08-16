@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :projections, only: [:new, :create, :show, :index]
+  resources :bookings, only: [:create]
 end
