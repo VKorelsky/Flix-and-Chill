@@ -5,7 +5,7 @@
 
       <li class="list-group-item">
         <ul class="list-group">
-          <!--   TODO add projection.name -->
+          <li class="list-group-item"><h3><%= projection.name %></h3></li>
           <li class="list-group-item">On regardera : <%= projection.movie %></li>
           <li class="list-group-item">Ou ? <%= projection.address %></li>
           <li class="list-group-item">Nb de participants : <%= projection.bookings.length %></li>
@@ -21,7 +21,7 @@
     <% @past_projections.each do |projection| %>
       <li class="list-group-item">
         <ul class="list-group">
-          <!--   TODO add projection.name -->
+          <li class="list-group-item"><h3><%= projection.name %></h3></li>
           <li class="list-group-item">On a vu : <%= projection.movie %></li>
           <li class="list-group-item">Ou ? <%= projection.address %></li>
           <li class="list-group-item">Nb de participants : <%= projection.bookings.length %></li>
