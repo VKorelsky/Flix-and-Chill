@@ -1,0 +1,18 @@
+<h1 class="text-center">Edit your profile</h1>
+
+
+<div class="text-center">
+        <%= simple_form_for @user do |f| %>
+        <%= f.input :birth_date, as: :date,
+                              start_year: @user.birth_date.year, end_year: Date.today.year - 90, discard_day: true,
+                              end_month: @user.birth_date.month,
+                                order: [:month, :year]%>
+        <%= f.input :email %>
+        <%= f.input :photo, as: :attachinary %>
+        <%= f.button :submit, "Submit changes", class: "btn btn-primary" %>
+      <% end %>
+</div>
+
+<div class="text-center">
+  <%= link_to "back", user_path(@user) %>
+</div>

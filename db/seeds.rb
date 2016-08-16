@@ -12,7 +12,6 @@ Projection.destroy_all
 User.destroy_all
 
 
-
 films = [
 "Forrest Gump",
 "La Ligne verte",
@@ -60,7 +59,7 @@ User.all.each do |user|
   address = Faker::Address.city
 
   (0..3).to_a.sample.times do
-  projection = Projection.create(user: user, date: date, address: address, movie: films.sample, capacity: (3..20).to_a.sample)
+  projection = Projection.create(name: Faker::StarWars.quote, user: user, date: date, address: address, movie: films.sample, capacity: (3..20).to_a.sample)
 
     (0..projection.capacity).to_a.sample.times do
 
