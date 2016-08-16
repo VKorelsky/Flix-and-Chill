@@ -26,7 +26,8 @@ class ProjectionsController < ApplicationController
   end
 
   def update
-    @projection = Projection.update(projection_params)
+    set_projections
+    @projection.update(projection_params)
     redirect_to projection_path(@projection)
   end
 
