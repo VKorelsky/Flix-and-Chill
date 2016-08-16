@@ -9,9 +9,9 @@
 
 date = Date.today
 
-ronald = User.create(email: "ronald@fake.com", password: "ronald", first_name: "Ronald")
-daisy = User.create(email: "daisy@fake.com", password: "daisyisthebitch", first_name: "Daisy")
-batman = User.create(email: "batman@fake.com", password: "batman", first_name: "Batman")
+ronald = User.create(email: "ronald@fake.com", password: "ronald", first_name: "Ronald", birth_date: date)
+daisy = User.create(email: "daisy@fake.com", password: "daisyisthebitch", first_name: "Daisy", birth_date: date)
+batman = User.create(email: "batman@fake.com", password: "batman", first_name: "Batman", birth_date: date)
 
 Projection.create(user: ronald, date: date, address: "16 villa gaudelet", movie: "Lord of the rings")
 

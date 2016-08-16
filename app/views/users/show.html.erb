@@ -1,2 +1,25 @@
 <h1 class="text-center"><%= @user.first_name %></h1>
 
+<dl class="text-center">
+  <dt>Birth Date</dt>
+  <%= @user.birth_date %>
+
+  <dt>Upcoming projections</dt>
+  <% @user.projections.each do |projection|%>
+    <%= "#{projection.movie} at #{projection.address}" %>
+  <% end %>
+
+  <dt> Projections he's been to </dt>
+  <% @user.bookings.each do |booking|%>
+    <%= booking.projection_id %>
+  <% end %>
+
+  <dt> Reviews he's written </dt>
+  <% @user.reviews.each do |review|%>
+    <%= "#{review.booking.projection.movie} at #{review.booking.projection.address}" %> <br>
+    <%= review.content %>
+  <% end %>
+
+  <%= link_to "edit profile", edit_user_path(@user)%>
+</dl>
+
