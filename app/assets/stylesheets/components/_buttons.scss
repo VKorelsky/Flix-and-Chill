@@ -1,3 +1,15 @@
 .big-red-btn {
   color: #E80000;
 }
+
+.btn-underline{
+  color: white;
+  text-decoration: none !important;
+  padding-bottom: 0px;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+    &:hover{
+      color: white;
+      border-top: 4px solid white !important;
+    }
+}
