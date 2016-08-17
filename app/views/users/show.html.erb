@@ -18,7 +18,7 @@
 
   <dt> Projections he's been to </dt>
   <% @user.bookings.each do |booking|%>
-    <%= booking.projection_id %>
+    <%= booking.projection.name %>
   <% end %>
 
   <dt> Reviews he's written </dt>

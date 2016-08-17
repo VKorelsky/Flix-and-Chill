@@ -8,19 +8,19 @@
       <% end %>
       <% if @projection.photo? %>
         <%= cl_image_tag @projection.photo.path, width: 200, height: 300, crop: :fill %>
+      <% end %>
       <h4>Address: <%= @projection.address %></h4>
       <h4>Date: <%= @projection.date %></h4>
       <h4>Capacity: <%= @projection.capacity %></h4>
       <h4>Places restantes: <%= @projection.capacity - @projection.bookings.length %></h4>
-      <h4>
-
-        <div style="display: flex; flex-direction: row, justify-content: flex-start">
-          <div>Participants:</div>
+      <div style="display: flex; flex-direction: row, justify-content: flex-start">
+        <h4>
+          Participants:
           <% @projection.bookings.each do |booking| %>
             <%= booking.user.first_name + " " + booking.user.last_name %>
           <% end %>
-        </div>
-      </h4>
+        </h4>
+      </div>
       <h4>Organizer: <%= @projection.user.first_name %></h4>
 
       <ul>

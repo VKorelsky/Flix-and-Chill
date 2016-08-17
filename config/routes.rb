@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   resources :reviews, only: [:create, :update]
 
-  root to: 'projections#index'
+  root to: 'pages#home'
   # For attachinary
   mount Attachinary::Engine => "/attachinary"
 end
