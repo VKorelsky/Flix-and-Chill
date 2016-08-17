@@ -1,8 +1,7 @@
 class ProjectionsController < ApplicationController
   def index
     today = Date.today
-    @futur_projections = Projection.where("date > ?", today).order(date: :desc)
-    @past_projections = Projection.where("date > ?", today).order(date: :desc)
+    @projections = Projection.all.order(date: :desc)
     @new_booking = Booking.new
   end
 

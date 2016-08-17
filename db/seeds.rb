@@ -56,10 +56,11 @@ end
 User.all.each do |user|
 
   date = Faker::Date.between(7.days.ago, 14.days.from_now)
+  start_time = Faker::Time.between(date, Date.today, :evening)
   address = Faker::Address.city
 
   (0..3).to_a.sample.times do
-  projection = Projection.create(name: Faker::StarWars.quote, user: user, date: date, address: address, movie: films.sample, capacity: (3..20).to_a.sample)
+  projection = Projection.create(name: Faker::StarWars.quote, user: user, date: date, address: address, movie: films.sample, capacity: (3..20).to_a.sample, start_time: start_time)
 
     (0..projection.capacity).to_a.sample.times do
 
