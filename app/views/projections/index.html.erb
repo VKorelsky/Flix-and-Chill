@@ -1,25 +1,17 @@
 <div class="container">
   <%= render "search-form" %>
-  <h2><%= @searched_location %></h2>
-    <% if !@found_projections.empty? %>
+  <% if !@found_projections.empty? %>
+    <h2><%= @searched_location %></h2>
       <% @found_projections.each do |projection| %>
         <%= render "projection-index", :projection => projection %>
       <% end %>
+    <% else %>
+    <h3 class="text-center">There are no projections in <%= @searched_location %> </br><%= link_to "Add a projection", new_projection_path %></h3>
+    <h2>In other cities</h2>
+      <% unless @projections.empty? %>
+        <% @projections.each do |projection| %>
+          <%= render "projection-index", :projection => projection %>
+        <% end %>
+      <% end %>
     <% end %>
-  <h2>Today's projections</h2>
-  <% if !@todays_projections.empty? %>
-    <% @todays_projections.each do |projection| %>
-      <%= render "projection-index", :projection => projection %>
-    <% end %>
-  <% else %>
-    <p class="text-center">There are no projections today <%= link_to "Add a projection", new_projection_path %></p>
-  <% end %>
-  <h2>Upcoming projections</h2>
-  <% if !@projections.empty?  %>
-    <% @projections.each do |projection| %>
-      <%= render "projection-index", :projection => projection %>
-    <% end %>
-  <% else %>
-    <p class="text-center">There are no upcomping projections <%= link_to "Add a projection", new_projection_path %></p>
-  <% end %>
 </div>
