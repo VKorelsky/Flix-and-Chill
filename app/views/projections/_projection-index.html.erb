@@ -2,11 +2,11 @@
   <div class="movie">
     <div class="movie-image"
     <% if projection.photo? %>
-    style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url("<%= cl_image_path projection.photo.path, width: 230, height: 130, crop: :fill %>");
+    style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url(' <%= cl_image_path projection.photo.path, width: 230, height: 130, crop: :fill %> ');"
     <% else %>
-    style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url("#");
+    style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url('#');"
     <% end %>
-    ">
+    >
       <div class="movie-date text-center">
         <p><%= Date::ABBR_MONTHNAMES[projection.date.month] %></p>
         <p><%= projection.date.day %></p>
