@@ -4,7 +4,8 @@
   background-color: white;
   box-shadow: 0px 1px 0px 1px rgba(158, 158, 158, 0.5);
   border-radius: 4px;
-
+  display: flex;
+  flex: 1;
   h2 {
     font-size: 18px;
   }
@@ -14,20 +15,33 @@
   }
 
   display: flex;
-  justify-content: space-between;
+}
+
+.projection-card-center {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.projection-card-description {
+  flex: 0 0 80%;
+}
+
+
+.projection-card-controls {
+  border-left: 1px dotted;
+  padding-left: 25px;
 }
 
 .movie{
   width:30%;
 }
 
-.movie-image {
-
+.projection-card-picture {
+  flex: 0 0 20%;
   color: white;
-
-  height: 100%;
-  width: 100%;
   position: relative;
+  margin-right: 10px;
 
   .movie-date {
   margin: 0;

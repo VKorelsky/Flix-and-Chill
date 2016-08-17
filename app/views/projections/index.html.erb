@@ -1,40 +1,39 @@
 <div class="container">
   <% @projections.each do |projection| %>
     <div class="projection-card">
-      <div class="movie">
-        <% if projection.photo? %>
-          <div class="movie-image" style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url('<%= cl_image_path projection.photo.path, width: 230, height: 130, crop: :fill %>');">
-        <% else %>
-          <div class="movie-image" style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url(#);">
-        <% end %>
-          <div class="movie-date text-center">
-            <p><%= Date::ABBR_MONTHNAMES[projection.date.month] %></p>
-            <p><%= projection.date.day %></p>
-          </div>
-          <h2><%= projection.movie%></h2>
+
+      <% if projection.photo? %>
+        <div class="projection-card-picture" style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url('<%= cl_image_path projection.photo.path, width: 230, height: 130, crop: :fill %>');">
+      <% else %>
+        <div class="projection-card-picture" style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url(#);">
+      <% end %>
+        <div class="movie-date text-center">
+          <p><%= Date::ABBR_MONTHNAMES[projection.date.month] %></p>
+          <p><%= projection.date.day %></p>
         </div>
-      </div>
-      <div class="projection">
-        <div>
+        <h2><%= projection.movie%></h2>
+        </div>
+      <div class="projection-card-center">
+        <div class="projection-card-description">
           <h2><%= link_to projection.name, projection_path(projection) %></h2>
           <p><%= link_to projection.address, "https://www.google.fr/maps/search/#{projection.address}", target: "_blank"  %></p>
         </div>
-      </div>
-      <div class="booking text-center">
-        <h2><!-- TODO: projection.start_time -->20:00</h2>
-        <% if user_signed_in? %>
-          <% if (projection.bookings & current_user.bookings).empty? %>
-            <%= simple_form_for @new_booking do |f| %>
-              <%= f.input :projection_id, as: :hidden, input_html: { value: projection.id } %>
-              <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>
-              <%= f.button :submit, "Participate", class:"btn btn-default" %>
+        <div class="projection-card-controls text-center">
+          <h2><!-- TODO: projection.start_time -->20:00</h2>
+          <% if user_signed_in? %>
+            <% if (projection.bookings & current_user.bookings).empty? %>
+              <%= simple_form_for @new_booking do |f| %>
+                <%= f.input :projection_id, as: :hidden, input_html: { value: projection.id } %>
+                <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>
+                <%= f.button :submit, "Participate", class:"btn btn-default" %>
+              <% end %>
+            <% else %>
+              <p>Ticket taken !</p>
             <% end %>
           <% else %>
-            <p>Ticket taken !</p>
+            <%= link_to "Login or Create account", user_session_path, class:"btn btn-default"%>
           <% end %>
-        <% else %>
-          <%= link_to "Login or Create account", user_session_path, class:"btn btn-default"%>
-        <% end %>
+        </div>
       </div>
     </div>
   <% end %>
