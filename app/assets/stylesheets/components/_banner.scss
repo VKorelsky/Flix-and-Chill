@@ -1,7 +1,7 @@
 .banner {
   color: white;
   text-align: center;
-  height: 100vh;
+  height: calc(100vh - 70px);
   /* if you have a 70px navbar => height: calc(100vh - 70px); */
   background-size: cover !important;
   display: flex;
@@ -18,4 +18,16 @@
   font-weight: lighter;
   color: rgba(255, 255, 255, 0.7);
   margin-bottom: 20px;
+}
+
+.banner-smaller {
+  height: 40vh;
+  background-position: center center;
+}
+
+#projection {
+  margin-top: -70px;
+  h2 {
+    color: white;
+  }
 }

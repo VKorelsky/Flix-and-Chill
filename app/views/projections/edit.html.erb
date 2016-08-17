@@ -18,6 +18,9 @@
           <%= f.input :date %>
           <%= f.input :capacity %>
           <%= f.input :photo, as: :attachinary %>
+          <% if @projection.photo? %>
+            <%= cl_image_tag @projection.photo.path, width: 200, height: 300, crop: :fill %>
+          <% end %>
           <%= f.button :submit %>
         <% end %>
       </div>
