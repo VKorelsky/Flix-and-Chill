@@ -15,7 +15,13 @@
       <%= render 'shared/home-navbar' %>
     <% end %>
     <%= render 'shared/flashes' %>
+
     <%= yield %>
+
+    <% if controller_name != "pages" %>
+      <%= render 'shared/footer' %>
+    <% end %>
+
     <%= javascript_include_tag 'application' %>
     <%= cloudinary_js_config %>
   </body>
