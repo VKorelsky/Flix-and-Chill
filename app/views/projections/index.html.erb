@@ -12,12 +12,12 @@
       </div>
       <div class="projection">
         <div>
-          <h2><%= projection.name %></h2>
+          <h2><%= link_to projection.name, projection_path(projection) %></h2>
           <p><%= link_to projection.address, "https://www.google.fr/maps/search/#{projection.address}", target: "_blank"  %></p>
         </div>
       </div>
       <div class="booking text-center">
-        <h2><!-- projection.start_time -->20:00</h2>
+        <h2><!-- TODO: projection.start_time -->20:00</h2>
         <% if user_signed_in? %>
           <% if (projection.bookings & current_user.bookings).empty? %>
             <%= simple_form_for @new_booking do |f| %>
