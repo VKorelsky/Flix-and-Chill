@@ -1,37 +1,25 @@
 <div class="container">
-  <% @projections.each do |projection| %>
-    <div class="projection-card">
-      <div class="movie">
-        <div class="movie-image" style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url("#");">
-          <div class="movie-date text-center">
-            <p><%= Date::ABBR_MONTHNAMES[projection.date.month] %></p>
-            <p><%= projection.date.day %></p>
-          </div>
-          <h2><%= projection.movie%></h2>
-        </div>
-      </div>
-      <div class="projection">
-        <div>
-          <h2><%= link_to projection.name, projection_path(projection) %></h2>
-          <p><%= link_to projection.address, "https://www.google.fr/maps/search/#{projection.address}", target: "_blank"  %></p>
-        </div>
-      </div>
-      <div class="booking text-center">
-        <h2><!-- TODO: projection.start_time -->20:00</h2>
-        <% if user_signed_in? %>
-          <% if (projection.bookings & current_user.bookings).empty? %>
-            <%= simple_form_for @new_booking do |f| %>
-              <%= f.input :projection_id, as: :hidden, input_html: { value: projection.id } %>
-              <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>
-              <%= f.button :submit, "Participate", class:"btn btn-default" %>
-            <% end %>
-          <% else %>
-            <p>Ticket taken !</p>
-          <% end %>
-        <% else %>
-          <%= link_to "Login or Create account", user_session_path, class:"btn btn-default"%>
-        <% end %>
-      </div>
-    </div>
+  <%= render "search-form" %>
+  <h2><%= @searched_location %></h2>
+    <% if !@found_projections.empty? %>
+      <% @found_projections.each do |projection| %>
+        <%= render "projection-index", :projection => projection %>
+      <% end %>
+    <% end %>
+  <h2>Today's projections</h2>
+  <% if !@todays_projections.empty? %>
+    <% @todays_projections.each do |projection| %>
+      <%= render "projection-index", :projection => projection %>
+    <% end %>
+  <% else %>
+    <p class="text-center">There are no projections today <%= link_to "Add a projection", new_projection_path %></p>
+  <% end %>
+  <h2>Upcoming projections</h2>
+  <% if !@projections.empty?  %>
+    <% @projections.each do |projection| %>
+      <%= render "projection-index", :projection => projection %>
+    <% end %>
+  <% else %>
+    <p class="text-center">There are no upcomping projections <%= link_to "Add a projection", new_projection_path %></p>
   <% end %>
 </div>

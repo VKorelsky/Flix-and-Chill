@@ -1,7 +1,9 @@
 class ProjectionsController < ApplicationController
   def index
     today = Date.today
-    @projections = Projection.all.order(date: :desc)
+    @found_projections = Projection.where("date >= ?", params[:search][:first_day].to_date).where("date <= ?", params[:search][:last_day].to_date).order(date: :asc)
+    @todays_projections = Projection.where("date = ?", today).order(date: :asc)
+    @projections = Projection.where("date >= ?", today).order(date: :asc)
     @new_booking = Booking.new
   end
 
@@ -41,4 +43,8 @@ class ProjectionsController < ApplicationController
   def projection_params
     params.require(:projection).permit(:name, :address, :movie, :date, :capacity, :photo)
   end
+
+  # def clean_query_string
+
+  # end
 end
