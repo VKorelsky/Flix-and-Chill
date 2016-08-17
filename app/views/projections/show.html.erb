@@ -1,14 +1,15 @@
-<div class="container">
+<div class="banner banner-smaller" style="background-image: linear-gradient(-225deg, rgba(168, 132, 0, 0.31) 0%, rgba(61, 21, 0, 0.2) 50%), url(<%= image_path 'rooftop_projection.jpg' %>);"></div>
+<div class="container" id="projection">
   <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
-      <%= link_to "< All projections", projections_path %>
-      <h1><%= @projection.name %></h1>
+      <h2><%= @projection.name %></h2>
       <% if current_user == @projection.user %>
         <%= link_to "Edit", edit_projection_path(@projection) %>
       <% end %>
       <% if @projection.photo? %>
         <%= cl_image_tag @projection.photo.path, width: 200, height: 300, crop: :fill %>
       <% end %>
+      <%= link_to "< All projections", projections_path %>
       <h4>Address: <%= @projection.address %></h4>
       <h4>Date: <%= @projection.date %></h4>
       <h4>Capacity: <%= @projection.capacity %></h4>
