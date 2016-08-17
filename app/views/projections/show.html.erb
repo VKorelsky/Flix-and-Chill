@@ -6,6 +6,7 @@
       <% if current_user == @projection.user %>
         <%= link_to "Edit", edit_projection_path(@projection) %>
       <% end %>
+      <br>
       <% if @projection.photo? %>
         <%= cl_image_tag @projection.photo.path, width: 200, height: 300, crop: :fill %>
       <% end %>

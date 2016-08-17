@@ -2,7 +2,9 @@
 
 <dl class="text-center">
 
-  <%= cl_image_tag @user.photo.path, height: 300, width: 400, crop: :fill %>
+  <% if @user.photo? %>
+    <%= cl_image_tag @user.photo.path, height: 300, width: 400, crop: :fill %>
+  <% end %>
 
   <dt>Birth Date</dt>
   <%= @user.birth_date %>
