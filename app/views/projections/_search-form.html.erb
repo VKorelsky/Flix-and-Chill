@@ -1,0 +1,5 @@
+<%= simple_form_for :search, url: projections_path, method: :get, html: {class: "form-inline"} do |f| %>
+    <%= f.input :first_day, as: :date, html5: true %>
+    <%= f.input :last_day, as: :date, html5: true %>
+    <%= f.submit "Search"%>
+<% end %>
