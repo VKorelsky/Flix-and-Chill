@@ -1,6 +1,6 @@
 <div class="navbar-wagon-opaque">
   <!-- Logo -->
-  <%= link_to root_path, class: "navbar-wagon-brand" do %>
+  <%= link_to projections_path, class: "navbar-wagon-brand" do %>
     <i class="fa fa-film" aria-hidden="true" style="color: black;
     font-size: 25px; "></i>
   <% end %>
@@ -103,6 +103,8 @@
 
     <% end %>
   </div>
+
+  <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button btn" %>
 
   <!-- Dropdown list appearing on mobile only -->
   <div class="navbar-wagon-item hidden-md hidden-lg">
