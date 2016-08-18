@@ -2,6 +2,18 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @user_age_in_days = age_in_days(@user.birth_date)
+
+    # raise to check date.today format
+    @user_activity = {
+                      future_projections: @user.projections.where("date >= ?", Date.today).order(date: :desc),
+                      past_projection: @user.projections.where("date < ?", Date.today).order(date: :desc),
+                      future_bookings: find_by_date(@user.bookings.all, "past_bookings"),
+                      past_bookings: find_by_date(@user.bookings.all, "future_bookings")
+                      }
+
+    @user_activity[:future_activity] = [@user_activity[:future_projections], @user_activity[:future_bookings]].flatten
+    @user_activity[:past_activity] = [@user_activity[:past_projections], @user_activity[:past_bookings]].flatten
+    # helper
     @user.first_name.capitalize!
   end
 
@@ -26,5 +38,19 @@ class UsersController < ApplicationController
 
   def age_in_days(birth_date)
     (Date.today - birth_date).to_i
+  end
+
+  def find_by_date(booking_array, criterion)
+    # finds matched bookings by date, without going through sql queries
+    matched_bookings = []
+    booking_array.each do |booking|
+        if criterion == "past_bookings"
+         matched_bookings << booking.projection if booking.projection.date < Date.today
+        elsif criterion == "future_bookings"
+         matched_bookings << booking.projection if booking.projection.date >= Date.today
+      end
+    end
+
+    matched_bookings
   end
 end

@@ -27,3 +27,17 @@
 .wrapper-grey {
   background-color: $gray-lighter
 }
+
+// javascript helper classes
+
+.overline{
+  font-size: 18px;
+  color: white;
+  text-decoration: none !important;
+  padding-bottom: 0px;
+    &.active {
+      color: white;
+      border-top: 4px solid white !important;
+    }
+}
+

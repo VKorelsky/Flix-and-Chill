@@ -19,11 +19,30 @@
       <!-- Projection info -->
       <div class="col-xs-12 col-sm-7">
       <!-- Header -->
-      <% if current_user == @user %>
-        <h1>My projections</h1>
-      <% else %>
-        <h1> <%= @user.first_name %>'s projections</h1>
-      <% end %>
+        <% if current_user == @user %>
+         <h1 class="overline active" id="future-activity">My projections</h1>
+        <% else %>
+          <h1 class="overline active" id="future-activity"> <%= @user.first_name %>'s projections</h1>
+        <% end %>
+        <h1 class="overline" id="activity-history">Past projections</h1>
+
+        <% if @user_activity[:future_activity].nil? %>
+          <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button " %>
+        <% else %>
+        <!-- Future projection list -->
+          <% @user_activity[:future_projections].each do |future_projection| %>
+            <%# TODO: move partial to shared folder %>
+            <%= render "projections/projection-index", projection: future_projection %>
+          <% end %>
+
+          <% @user_activity[:future_bookings].each do |future_booking| %>
+          <%# TODO: move partial to shared folder %>
+            <%= render "projections/projection-index", projection: future_booking %>
+          <% end %>
+        <% end %>
+
+
+
       </div>
 
 
