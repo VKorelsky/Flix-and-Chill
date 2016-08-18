@@ -78,7 +78,7 @@
       <div class="modal fade sign-up-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
         <div class="modal-dialog modal-sm" role="document">
           <div class="modal-content">
-          <h3 class="text-center">Log in</h3>
+          <h3 class="text-center">Sign up</h3>
            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= f.error_notification %>
 
@@ -104,7 +104,10 @@
     <% end %>
   </div>
 
-  <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button btn" %>
+  <% if user_signed_in? %>
+    <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button btn" %>
+  <% end %>
+
 
   <!-- Dropdown list appearing on mobile only -->
   <div class="navbar-wagon-item hidden-md hidden-lg">
