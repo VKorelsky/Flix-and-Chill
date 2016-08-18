@@ -32,7 +32,7 @@ class ProjectionsController < ApplicationController
   def create
     @projection = Projection.new(projection_params)
     @projection.user = current_user
-    @projection.save!
+    @projection.save
     redirect_to projection_path(@projection)
   end
 
