@@ -24,6 +24,9 @@ gem 'attachinary', github: 'assembler/attachinary'
 gem "jquery-fileupload-rails"
 gem "coffee-rails"
 
+#mails
+gem "letter_opener", group: :development
+
 group :development, :test do
   gem 'binding_of_caller'
   gem 'better_errors'
