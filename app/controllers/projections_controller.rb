@@ -2,20 +2,12 @@ class ProjectionsController < ApplicationController
   def index
     today = Date.today
     @projections = Projection.all.order(date: :asc)
-    @found_projections = @projections.where("date >= ?", today)
+    @found_projections = @projections.where("date >= ?", today).order(date: :desc)
+
     unless params[:search].nil?
-      unless params[:search][:first_day].nil?
-       @found_projections = @found_projections.where("date >= ?", params[:search][:first_day].to_date)
-      end
-      unless params[:search][:last_day].nil?
-        @found_projections = @found_projections.where("date <= ?", params[:search][:last_day].to_date)
-      end
-      unless params[:search][:location].nil?
-        @searched_location = params[:search][:location]
-        @found_projections = @found_projections.where("address = ?", @searched_location)
-      end
+      @found_projections = Projection.near(params[:search][:location], 20).order(date: :desc)
     end
-    @found_projections.order(date: :asc)
+
     @new_booking = Booking.new
   end
 
