@@ -1,4 +1,4 @@
-<%= simple_form_for :search, url: projections_path, method: :get do |f| %>
+<%= simple_form_for :search, url: projections_path, method: :get, html: { class: "form-inline" } do |f| %>
     <%= f.input :location, html5: true, placeholder: "Where are you located ?", label: false, input_html: { class: "input-lg" } %>
     <%= f.input :first_day, as: :hidden, html5: true, label: false  %>
     <%= f.input :last_day, as: :hidden, html5: true, label: false  %>
