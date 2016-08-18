@@ -1,15 +1,17 @@
-<div class="container">
-  <%= render "search-form" %>
-  <% if !@found_projections.empty? %>
-    <h2><%= @searched_location %></h2>
-    <% @found_projections.each do |projection| %>
-      <%= render "projection-index", :projection => projection %>
+<div class="wrapper">
+  <div class="container">
+    <%= render "search-form" %>
+    <% if !@found_projections.empty? %>
+      <h2><%= @searched_location %></h2>
+      <% @found_projections.each do |projection| %>
+        <%= render "projection-index", :projection => projection %>
+      <% end %>
+    <% else %>
+      <h3 class="text-center">
+        There are no projections in <%= @searched_location %>
+        </br>
+        <%= link_to "Add a projection", new_projection_path %>
+      </h3>
     <% end %>
-  <% else %>
-    <h3 class="text-center">
-      There are no projections in <%= @searched_location %>
-      </br>
-      <%= link_to "Add a projection", new_projection_path %>
-    </h3>
-  <% end %>
+  </div>
 </div>
