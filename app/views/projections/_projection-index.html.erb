@@ -23,7 +23,9 @@
   <div class="booking text-center">
     <h2><!-- TODO: projection.start_time -->20:00</h2>
     <% if user_signed_in? %>
-      <% if (projection.bookings & current_user.bookings).empty? %>
+      <% if projection.user_id == current_user.id %>
+        <p>Your event</p>
+      <% elsif (projection.bookings & current_user.bookings).empty? %>
         <%= simple_form_for @new_booking do |f| %>
           <%= f.input :projection_id, as: :hidden, input_html: { value: projection.id } %>
           <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>

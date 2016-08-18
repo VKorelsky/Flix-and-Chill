@@ -25,13 +25,12 @@
           <h1 class="overline active" id="future-activity"> <%= @user.first_name %>'s projections</h1>
         <% end %>
         <h1 class="overline" id="activity-history">Past projections</h1>
-
+        <div class="" id= "future-projections">
         <% if @future_activity.empty? %>
           <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button " %>
         <% else %>
         <!-- Future projection list -->
         <% @future_projections.each do |projection| %>
-
           <%# TODO: move partial to shared folder %>
           <%= render "projections/projection-index", projection: projection %>
         <% end %>
@@ -41,9 +40,10 @@
           <%= render "projections/projection-index", projection: projection %>
         <% end %>
       <% end %>
-
+      </div>
+      <div class="hidden" id="past-projections">
        <% if @past_activity.empty? %>
-          <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button " %>
+          <p>Non activity</p>
         <% else %>
         <!-- past projection list -->
         <% @past_projections.each do |projection| %>
@@ -57,6 +57,7 @@
           <%= render "projections/projection-index", projection: projection %>
         <% end %>
       <% end %>
+      </div>
 
 
 
