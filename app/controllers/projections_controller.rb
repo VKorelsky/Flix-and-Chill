@@ -3,11 +3,9 @@ class ProjectionsController < ApplicationController
     today = Date.today
     @projections = Projection.all.order(date: :asc)
     @found_projections = @projections.where("date >= ?", today).order(date: :desc)
-
     unless params[:search].nil?
       @found_projections = Projection.near(params[:search][:location], 20).order(date: :desc)
     end
-
     @new_booking = Booking.new
   end
 
