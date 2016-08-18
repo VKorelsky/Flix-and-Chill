@@ -30,6 +30,13 @@ gem "letter_opener", group: :development
 #geocoding
 gem "geocoder"
 
+# gmaps
+gem "gmaps4rails"
+
+source 'https://rails-assets.org' do
+  gem "rails-assets-underscore"
+end
+
 group :development, :test do
   gem 'binding_of_caller'
   gem 'better_errors'
