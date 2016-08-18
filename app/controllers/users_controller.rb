@@ -4,15 +4,14 @@ class UsersController < ApplicationController
     @user_age_in_days = age_in_days(@user.birth_date)
 
     # raise to check date.today format
-    @user_activity = {
-                      future_projections: @user.projections.where("date >= ?", Date.today).order(date: :desc),
-                      past_projection: @user.projections.where("date < ?", Date.today).order(date: :desc),
-                      future_bookings: find_by_date(@user.bookings.all, "past_bookings"),
-                      past_bookings: find_by_date(@user.bookings.all, "future_bookings")
-                      }
+    @future_projections= @user.projections.where("date >= ?", Date.today).order(date: :desc)
+    @past_projections= @user.projections.where("date < ?", Date.today).order(date: :desc)
+    @future_bookings= find_by_date(@user.bookings.all, "past_bookings")
+    @past_bookings= find_by_date(@user.bookings.all, "future_bookings")
 
-    @user_activity[:future_activity] = [@user_activity[:future_projections], @user_activity[:future_bookings]].flatten
-    @user_activity[:past_activity] = [@user_activity[:past_projections], @user_activity[:past_bookings]].flatten
+    @future_activity= [@future_projections, @future_bookings].flatten
+    @past_activity = [@past_projections, @past_bookings].flatten
+
     # helper
     @user.first_name.capitalize!
   end
@@ -53,4 +52,5 @@ class UsersController < ApplicationController
 
     matched_bookings
   end
+
 end

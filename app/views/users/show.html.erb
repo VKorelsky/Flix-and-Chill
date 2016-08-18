@@ -26,20 +26,38 @@
         <% end %>
         <h1 class="overline" id="activity-history">Past projections</h1>
 
-        <% if @user_activity[:future_activity].nil? %>
+        <% if @future_activity.empty? %>
           <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button " %>
         <% else %>
         <!-- Future projection list -->
-          <% @user_activity[:future_projections].each do |future_projection| %>
-            <%# TODO: move partial to shared folder %>
-            <%= render "projections/projection-index", projection: future_projection %>
-          <% end %>
+        <% @future_projections.each do |projection| %>
 
-          <% @user_activity[:future_bookings].each do |future_booking| %>
           <%# TODO: move partial to shared folder %>
-            <%= render "projections/projection-index", projection: future_booking %>
-          <% end %>
+          <%= render "projections/projection-index", projection: projection %>
         <% end %>
+
+        <% @future_bookings.each do |projection| %>
+          <%# TODO: move partial to shared folder %>
+          <%= render "projections/projection-index", projection: projection %>
+        <% end %>
+      <% end %>
+
+       <% if @past_activity.empty? %>
+          <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button " %>
+        <% else %>
+        <!-- past projection list -->
+        <% @past_projections.each do |projection| %>
+
+          <%# TODO: move partial to shared folder %>
+          <%= render "projections/projection-index", projection: projection %>
+        <% end %>
+
+        <% @past_bookings.each do |projection| %>
+          <%# TODO: move partial to shared folder %>
+          <%= render "projections/projection-index", projection: projection %>
+        <% end %>
+      <% end %>
+
 
 
 
