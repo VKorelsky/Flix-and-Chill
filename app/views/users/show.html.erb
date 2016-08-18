@@ -1,35 +1,32 @@
-<h1 class="text-center"><%= @user.first_name %></h1>
+<div class="wrapper-grey">
+  <div class="container">
+    <div class="row">
 
-<dl class="text-center">
+    <!-- user info -->
+      <div class="col-xs-12 col-sm-3 col-sm-offset-2">
+        <!-- Profile photo -->
+        <% if @user.photo? %>
+          <%= cl_image_tag @user.photo.path, height: 150, width: 150, crop: :fill %>
+        <% else %>
+          <%= image_tag "Underwood-placeholder.jpg", height: 150, width: 150, crop: :fill %>
+        <% end %>
 
-  <% if @user.photo? %>
-    <%= cl_image_tag @user.photo.path, height: 150, width: 150, crop: :fill %>
-  <% end %>
+        <!-- Profile Age and Name -->
+        <h4><%= @user.first_name %></h4>
+        <p><%= @user_age_in_days %> days old</p>
+      </div>
 
-  <dt>Birth Date</dt>
-  <%= @user.birth_date %>
+      <!-- Projection info -->
+      <div class="col-xs-12 col-sm-7">
+      <!-- Header -->
+      <% if current_user == @user %>
+        <h1>My projections</h1>
+      <% else %>
+        <h1> <%= @user.first_name %>'s projections</h1>
+      <% end %>
+      </div>
 
-  <dt>Email</dt>
-  <%= @user.email %>
 
-  <dt>Upcoming projections</dt>
-  <% @user.projections.each do |projection|%>
-    <%= "#{projection.movie} at #{projection.address}" %>
-  <% end %>
-
-  <dt> Projections he's been to </dt>
-  <% @user.bookings.each do |booking|%>
-    <%= booking.projection.name %>
-  <% end %>
-
-  <dt> Reviews he's written </dt>
-  <% @user.reviews.each do |review|%>
-    <%= "#{review.booking.projection.movie} at #{review.booking.projection.address}" %> <br>
-    <%= review.content %>
-  <% end %>
-
- <!-- ONLY IF USER IS THE ACTUAL ONE -->
-  <%= link_to "edit profile", edit_user_path(@user)%> <br>
-  <%= link_to "add a new projection", new_projection_path %>
-</dl>
-
+    </div>
+  </div>
+</div>

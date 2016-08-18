@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    @user_age_in_days = age_in_days(@user.birth_date)
+    @user.first_name.capitalize!
   end
 
   def edit
@@ -20,5 +22,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :birth_date, :projections, :email, :photo)
+  end
+
+  def age_in_days(birth_date)
+    (Date.today - birth_date).to_i
   end
 end
