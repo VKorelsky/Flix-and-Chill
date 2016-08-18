@@ -1,17 +1,28 @@
 <div class="wrapper">
   <div class="container">
-    <%= render "search-form" %>
     <% if !@found_projections.empty? %>
+      <div class="text-center">
+        <%= render "search-form" %>
+      </div>
       <h2><%= @searched_location %></h2>
       <% @found_projections.each do |projection| %>
-        <%= render "projection-index", :projection => projection %>
+        <%= render "projection-index", projection: projection %>
       <% end %>
     <% else %>
-      <h3 class="text-center">
-        There are no projections in <%= @searched_location %>
-        </br>
-        <%= link_to "Add a projection", new_projection_path %>
-      </h3>
+      <div>
+        <div class="text-center">
+          <h1>😔</h1>
+          <h2> We have trouble finding projections matching your request: <%= @searched_location %></h2>
+          <h2>Maybe try another city ?</h2>
+          <h2>⬇</h2>
+        </div>
+      </div>
+      <div class="text-center"><%= render "search-form" %></div>
+      <div style="height: 60px"></div>
+      <h3 class="text-center">or browse upcoming projections elsewhere:</h3>
+      <% @proposed_projections.each do |projection| %>
+        <%= render "projection-index", projection: projection %>
+      <% end %>
     <% end %>
   </div>
 </div>
