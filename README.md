@@ -1,3 +1,4 @@
-<h1> Flix 'n' Chill </h1>
+<h1> Flix&Chill </h1>
 
-Week long project part of the wagon's formation.
+A rails marketplace made in a week.
+Easily create events of projections and invite your friends to them.
