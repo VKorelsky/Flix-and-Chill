@@ -28,18 +28,7 @@ class ProjectionsController < ApplicationController
     @hash = Gmaps4rails.build_markers(@proposed_projections) do |projection, marker|
       marker.lat projection.latitude
       marker.lng projection.longitude
-      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
     end
-
-    # @hash = []
-
-    # @proposed_projections.each do |projection|
-    #   hash = {}
-    #   hash[:lat] = projection.latitude
-    #   hash[:lng] = projection.longitude
-    #   hash[:id] = projection.id
-    #   @hash << hash
-    # end
 
     @new_booking = Booking.new
   end
