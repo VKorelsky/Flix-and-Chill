@@ -20,7 +20,7 @@
           <p class="movie-date"><%= @projection.date.day %></p>
         <h4>Capacity: <%= @projection.capacity %></h4>
         <h4>Places restantes: <%= @projection.capacity - @projection.bookings.length %></h4>
-        <div style="display: flex; flex-direction: row, justify-content: flex-start">
+        <div class="particpants">
           <h4>
             Participants:
             <% @projection.bookings.each do |booking| %>
@@ -29,48 +29,49 @@
           </h4>
         </div>
         <h4>Organizer: <%= @projection.user.first_name %></h4>
-
-        <ul>
-          <% if user_signed_in? %>
-            <% if (@projection.reviews & current_user.reviews).empty? && !(@projection.bookings & current_user.bookings).empty? %>
-              <li>
-                <%= simple_form_for @new_review do |f| %>
-                  <%= f.error_notification %>
-                  <% @booking = Booking.where(user: current_user, projection: @projection).first %>
-                  <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
-                  <%= f.input :content %>
-                  <%= f.input :rating %>
-                  <%= f.button :submit, "Review" %>
-                <% end %>
+        <div id="reviews">
+          <ul>
+            <% if user_signed_in? %>
+              <% if (@projection.reviews & current_user.reviews).empty? && !(@projection.bookings & current_user.bookings).empty? %>
+                <li class="review-form">
+                  <%= simple_form_for @new_review do |f| %>
+                    <%= f.error_notification %>
+                    <% @booking = Booking.where(user: current_user, projection: @projection).first %>
+                    <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
+                    <%= f.input :content %>
+                    <%= f.input :rating %>
+                    <%= f.button :submit, "Review" %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+            <% @reviews.each do |review| %>
+              <li lass="review">
+                <ul>
+                  <li><%= review.booking.user.first_name + " " + review.booking.user.last_name %></li>
+                  <li><%= review.created_at %></li>
+                  <% if user_signed_in? && review.booking.user == current_user %>
+                    <li class="review-form">
+                      <%= simple_form_for review do |f| %>
+                        <%= f.error_notification %>
+                        <%= f.input :id, as: :hidden, input_html: { value: review.id } %>
+                        <% @booking = Booking.where(user: current_user, projection: @projection).first %>
+                        <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
+                        <%= f.input :content %>
+                        <%= f.input :rating %>
+                        <%= f.button :submit, "Edit review" %>
+                      <% end %>
+                    </li>
+                  <% else %>
+                    <li><%= review.content %></li>
+                    <li><%= "X" * review.rating %></li>
+                  <% end %>
+                </ul>
+                </br>
               </li>
             <% end %>
-          <% end %>
-          <% @reviews.each do |review| %>
-            <li>
-              <ul>
-                <li><%= review.booking.user.first_name + " " + review.booking.user.last_name %></li>
-                <li><%= review.created_at %></li>
-                <% if user_signed_in? && review.booking.user == current_user %>
-                  <li>
-                    <%= simple_form_for review do |f| %>
-                      <%= f.error_notification %>
-                      <%= f.input :id, as: :hidden, input_html: { value: review.id } %>
-                      <% @booking = Booking.where(user: current_user, projection: @projection).first %>
-                      <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
-                      <%= f.input :content %>
-                      <%= f.input :rating %>
-                      <%= f.button :submit, "Edit review" %>
-                    <% end %>
-                  </li>
-                <% else %>
-                  <li><%= review.content %></li>
-                  <li><%= "X" * review.rating %></li>
-                <% end %>
-              </ul>
-              </br>
-            </li>
-          <% end %>
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
