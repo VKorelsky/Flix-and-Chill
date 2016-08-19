@@ -23,8 +23,8 @@ class User < ApplicationRecord
   private
 
   # send welcome mail
-  def send_welcome_email
-    UserMailer.welcome(self).deliver_now
-    # Gildas says "don't really know what and where is deliver_now method"
-  end
+  # def send_welcome_email
+  #   UserMailer.welcome(self).deliver_now
+  #   # Gildas says "don't really know what and where is deliver_now method"
+  # end
 end
