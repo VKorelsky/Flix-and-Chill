@@ -15,7 +15,7 @@
           <%= f.input :name, required: true %>
           <%= f.input :movie %>
           <%= f.input :address %>
-          <%= f.input :starts_at, :as => :string, :input_html => { data: {behaviour: "datepicker"}} %>
+          <%= f.input :date, :as => :string, :input_html => { class: "datepicker" } %>
           <%= f.input :capacity %>
           <%= f.input :photo, as: :attachinary %>
           <% if @projection.photo? %>

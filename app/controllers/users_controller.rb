@@ -6,9 +6,22 @@ class UsersController < ApplicationController
     # raise to check date.today format
     @future_projections= @user.projections.where("date >= ?", Date.today).order(date: :desc)
     @past_projections= @user.projections.where("date < ?", Date.today).order(date: :desc)
-    @future_bookings= find_by_date(@user.bookings.all, "past_bookings")
-    @past_bookings= find_by_date(@user.bookings.all, "future_bookings")
 
+    # Loop to get the projections & remove duplicate projections
+    @future_bookings = []
+    @user.bookings.all.each do |booking|
+      (@future_bookings << booking.projection) if (booking.projection.date >= Date.today)
+    end
+    @future_bookings.reject! {|projection| @future_projections.include?(projection)}
+
+    @past_bookings = []
+    @user.bookings.all.each do |booking|
+      (@past_bookings << booking.projection) if (booking.projection.date < Date.today)
+    end
+    @past_bookings.reject! {|projection| @past_projections.include?(projection)}
+
+
+    # activity sets
     @future_activity= [@future_projections, @future_bookings].flatten
     @past_activity = [@past_projections, @past_bookings].flatten
 
@@ -38,19 +51,4 @@ class UsersController < ApplicationController
   def age_in_days(birth_date)
     (Date.today - birth_date).to_i
   end
-
-  def find_by_date(booking_array, criterion)
-    # finds matched bookings by date, without going through sql queries
-    matched_bookings = []
-    booking_array.each do |booking|
-        if criterion == "past_bookings"
-         matched_bookings << booking.projection if booking.projection.date < Date.today
-        elsif criterion == "future_bookings"
-         matched_bookings << booking.projection if booking.projection.date >= Date.today
-      end
-    end
-
-    matched_bookings
-  end
-
 end
