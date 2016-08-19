@@ -11,15 +11,19 @@
     <% else %>
       <div>
         <div class="text-center">
-          <h1>😔</h1>
-          <h2> We have trouble finding projections matching your request: <%= @searched_location %></h2>
-          <h2>Maybe try another city ?</h2>
-          <h2>⬇</h2>
+          <% if @searched_location.nil? || @searched_location.empty? %>
+            <h4>Please enter a city to find projections near you</h4>
+            <h3>⬇</h3>
+          <% else %>
+            <h4>😔</h4>
+            <h4><%= @searched_location %> is not a city with planned projections !</h4>
+            <h3>⬇</h3>
+          <% end %>
         </div>
       </div>
       <div class="text-center"><%= render "search-form" %></div>
       <div style="height: 60px"></div>
-      <h3 class="text-center">or browse upcoming projections elsewhere:</h3>
+      <h3 class="text-center">Browse upcoming projections elsewhere:</h3>
       <% @proposed_projections.each do |projection| %>
         <%= render "projection-index", projection: projection %>
       <% end %>
