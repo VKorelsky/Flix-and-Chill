@@ -113,3 +113,18 @@
   color: $gray-dark;
   border-top: 4px solid $red !important;
 }
+
+.btn-medium {
+  color: $gray-dark;
+  border: 1px solid $gray-dark;
+  padding: 10px 15px;
+  border-radius: 50px;
+  font-weight: lighter;
+  opacity: 0.6;
+}
+.btn-medium:hover {
+  opacity: 1;
+  text-decoration: none;
+  color: $red;
+  border-color: $red;
+}
