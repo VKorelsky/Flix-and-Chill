@@ -1,6 +1,8 @@
 class ProjectionsController < ApplicationController
   def index
     today = Date.today
+
+    # la tambouille pour la recherche
     @projections = Projection.where("date >= ?", today).order(date: :desc)
     @query_location = params[:search][:location]
 
@@ -13,13 +15,20 @@ class ProjectionsController < ApplicationController
 
       @searched_location = @query_location
 
-      if hash_locality = Geocoder.search(@searched_location).first.address_components.find { |item| item["types"].first == "locality"  }
-        @searched_location = hash_locality["long_name"]
+      if result_geocoder = Geocoder.search(@searched_location).first
+        if hash_locality = result_geocoder.address_components.find { |item| item["types"].first == "locality"  }
+          @searched_location = hash_locality["long_name"]
+        end
       end
     else
       @proposed_projections = @projections
     end
 
+
+    @hash = Gmaps4rails.build_markers(@proposed_projections) do |projection, marker|
+      marker.lat projection.latitude
+      marker.lng projection.longitude
+    end
 
     @new_booking = Booking.new
   end
