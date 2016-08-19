@@ -16,7 +16,7 @@
           <%= f.input :movie %>
           <%= f.input :address %>
          <!--  TODO un truc du genre value: Date.today -->
-          <%= f.input :date %>
+          <%= f.input :date, as: :string, input_html: {class: "datepicker"} %>
           <%= f.input :capacity %>
           <%= f.input :photo, as: :attachinary %>
           <%= f.button :submit %>
