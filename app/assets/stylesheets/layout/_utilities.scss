@@ -28,6 +28,59 @@
   background-color: $gray-lighter
 }
 
+// javascript helper classes
+
+.overline{
+  font-size: 18px;
+  color: #333333;
+  font-weight: lighter;
+  padding-top: 7px;
+  cursor: pointer;
+    &.active {
+      color: $gray-dark;
+      border-top: 4px solid $red !important;
+    }
+    &:hover{
+
+    }
+}
+
+.hidden {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.profile-tab {
+  color: #333333;
+  font-weight: lighter;
+  background-color: white;
+  padding: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  position: relative;
+  min-height: 75vh;
+  h4 {
+    font-size: 22px;
+  }
+  p {
+    font-size: 18px;
+  }
+}
+
+.projection-scroll {
+  overflow: scroll;
+}
+
+.absolute-bottom{
+  bottom: 10px;
+}
+
 .wrapper {
   min-height: 80vh;
+  margin-bottom: 120px;
 }

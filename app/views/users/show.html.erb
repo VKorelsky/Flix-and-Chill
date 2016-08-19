@@ -1,35 +1,68 @@
-<h1 class="text-center"><%= @user.first_name %></h1>
+<div class="container padded">
+    <div class="row">
+    <!-- user info -->
+      <div class="col-xs-12 col-sm-3 col-sm-offset-1 text-center profile-tab">
+        <!-- Profile photo -->
+        <div>
+          <% if @user.photo? %>
+            <%= cl_image_tag @user.photo.path, height: 150, width: 150, crop: :fill, class: "avatar-xt-large" %>
+          <% else %>
+            <%= image_tag "Underwood-placeholder.jpg", height: 150, width: 150, crop: :fill, class: "avatar-xt-large" %>
+          <% end %>
+        </div>
+          <!-- Profile Age and Name -->
+          <h4 class="absolute-bottom"><%= @user.first_name %></h4>
+          <p><%= @user_age_in_days %> days old</p>
+          <%= link_to edit_user_path(current_user), class: "btn btn-default absolute-bottom" do %>
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          <% end %>
+      </div>
 
-<dl class="text-center">
+      <!-- Projection info -->
+      <div class="col-xs-12 col-sm-7 projection-scroll">
+        <div class="tab">
+      <!-- Header -->
+          <% if current_user == @user %>
+           <h1 class="overline active" id="future-activity">My projections</h1>
+          <% else %>
+            <h1 class="overline active" id="future-activity"> <%= @user.first_name %>'s projections</h1>
+          <% end %>
+          <h1 class="overline" id="activity-history">Past projections</h1>
+        </div>
+        <div class="" id= "future-projections">
+        <% if @future_activity.empty? %>
+          <%= link_to "Add a projection", new_projection_path, class: "navbar-wagon-item navbar-wagon-button " %>
+        <% else %>
+        <!-- Future projection list -->
+        <% @future_projections.each do |projection| %>
+          <%# TODO: move partial to shared folder %>
+          <%= render "projections/projection-index", projection: projection %>
+        <% end %>
 
-  <% if @user.photo? %>
-    <%= cl_image_tag @user.photo.path, height: 150, width: 150, crop: :fill %>
-  <% end %>
+        <% @future_bookings.each do |projection| %>
+          <%# TODO: move partial to shared folder %>
+          <%= render "projections/projection-index", projection: projection %>
+        <% end %>
+        <% end %>
+        </div>
 
-  <dt>Birth Date</dt>
-  <%= @user.birth_date %>
+        <div class="hidden" id="past-projections">
+         <% if @past_activity.empty? %>
+            <p>Non activity</p>
+          <% else %>
+          <!-- past projection list -->
+          <% @past_projections.each do |projection| %>
 
-  <dt>Email</dt>
-  <%= @user.email %>
+            <%# TODO: move partial to shared folder %>
+            <%= render "projections/projection-index", projection: projection %>
+          <% end %>
 
-  <dt>Upcoming projections</dt>
-  <% @user.projections.each do |projection|%>
-    <%= "#{projection.movie} at #{projection.address}" %>
-  <% end %>
-
-  <dt> Projections he's been to </dt>
-  <% @user.bookings.each do |booking|%>
-    <%= booking.projection.name %>
-  <% end %>
-
-  <dt> Reviews he's written </dt>
-  <% @user.reviews.each do |review|%>
-    <%= "#{review.booking.projection.movie} at #{review.booking.projection.address}" %> <br>
-    <%= review.content %>
-  <% end %>
-
- <!-- ONLY IF USER IS THE ACTUAL ONE -->
-  <%= link_to "edit profile", edit_user_path(@user)%> <br>
-  <%= link_to "add a new projection", new_projection_path %>
-</dl>
-
+          <% @past_bookings.each do |projection| %>
+            <%# TODO: move partial to shared folder %>
+            <%= render "projections/projection-index", projection: projection %>
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
