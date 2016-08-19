@@ -1,12 +1,25 @@
 class ProjectionsController < ApplicationController
   def index
     today = Date.today
-    @projections = Projection.all.order(date: :asc)
-    @found_projections = @projections.where("date >= ?", today).order(date: :desc)
+    @projections = Projection.where("date >= ?", today).order(date: :desc)
+    @query_location = params[:search][:location]
 
-    unless params[:search].nil?
-      @found_projections = Projection.near(params[:search][:location], 20).order(date: :desc)
+    if !(params[:search].nil?)
+      @found_projections = Projection.near(@query_location, 50)
+
+      if @found_projections.empty?
+        @proposed_projections = @projections
+      end
+
+      @searched_location = @query_location
+
+      if hash_locality = Geocoder.search(@searched_location).first.address_components.find { |item| item["types"].first == "locality"  }
+        @searched_location = hash_locality["long_name"]
+      end
+    else
+      @proposed_projections = @projections
     end
+
 
     @new_booking = Booking.new
   end
