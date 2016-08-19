@@ -18,7 +18,7 @@ class User < ApplicationRecord
   validates :first_name, presence: {message: "You must enter a first name"}
 
   # send welcome mail
-  after_create :send_welcome_email
+  # after_create :send_welcome_email
 
   private
 
