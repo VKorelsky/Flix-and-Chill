@@ -70,6 +70,15 @@
   //   left: 10px;
   // }
 
+  .title {
+    a {
+      font-size: 1.1em;
+      font-weight: bolder;
+      color: black;
+      text-decoration: none;
+    }
+  }
+
   .participants {
     position: absolute;
     bottom: 10px;

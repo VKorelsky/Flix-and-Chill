@@ -2,75 +2,96 @@
   <div class="container">
     <div class="row" id="projection">
       <div class="col-xs-12 col-sm-2 col-sm-offset-1 text-center">
+
         <% if @projection.photo? %>
+          <div>
           <%= cl_image_tag @projection.photo.path, width: 160, height: 240, crop: :fill, id: "margin-image" %>
+          </div>
+
+          <%= link_to "Get a ticket", "#", class: "btn btn-danger", style: "margin-top: 20px; " %>
+
+
         <% end %>
-        <br>
-        <%= link_to "Get a ticket", "#", class: "btn btn-underline" %>
       </div>
       <div class="col-xs-12 col-sm-8">
-        <h2><%= @projection.name %></h2>
-        <h4>Address: <%= @projection.address %></h4>
+        <h2>
+          <%= @projection.name %>
+          <% if !@projection.user.photo? %>
+          <%= image_tag "https://www.drupal.org/files/profile_default.jpg", class: "avatar-large" %>
+          <% else %>
+          <%= cl_image_tag @projection.user.photo.path, height: 150, width: 150, crop: :fill, class: "avatar-large" %>
+          <% end %>
+        </h2>
+        <%= link_to "< All projections", projections_path %>
+        <h4><%= @projection.address %></h4>
+        <div class="show-map">        <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=214x160&sensor=false&maptype=roadmap&markers=color:red|#{@projection.address}&key=AIzaSyBDgyF0G_Lqwti0wPDWzT6UmWkztTQPcoM" %>
+        </div>
         <% if current_user == @projection.user %>
           <%= link_to "Edit", edit_projection_path(@projection) %>
         <% end %>
-        <br>
-        <%= link_to "< All projections", projections_path %>
-          <p><%= Date::ABBR_MONTHNAMES[@projection.date.month] %></p>
-          <p class="movie-date"><%= @projection.date.day %></p>
+        <h4><%= @projection.date.day.to_s + " " %><%= Date::ABBR_MONTHNAMES[@projection.date.month] %></h4>
         <h4>Capacity: <%= @projection.capacity %></h4>
         <h4>Places restantes: <%= @projection.capacity - @projection.bookings.length %></h4>
-        <div style="display: flex; flex-direction: row, justify-content: flex-start">
-          <h4>
-            Participants:
-            <% @projection.bookings.each do |booking| %>
-              <%= booking.user.first_name + " " + booking.user.last_name %>
+        <h4>Participants:</h4>
+        <div class="participants">
+          <% @projection.bookings.each do |booking| %>
+            <% if !booking.user.photo? %>
+            <%= image_tag "https://www.drupal.org/files/profile_default.jpg", class: "avatar-large" %>
+            <% else %>
+            <%= cl_image_tag booking.user.photo.path, height: 150, width: 150, crop: :fill, class: "avatar-large" %>
             <% end %>
-          </h4>
+          <% end %>
         </div>
-        <h4>Organizer: <%= @projection.user.first_name %></h4>
-
-        <ul>
-          <% if user_signed_in? %>
-            <% if (@projection.reviews & current_user.reviews).empty? && !(@projection.bookings & current_user.bookings).empty? %>
-              <li>
-                <%= simple_form_for @new_review do |f| %>
-                  <%= f.error_notification %>
-                  <% @booking = Booking.where(user: current_user, projection: @projection).first %>
-                  <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
-                  <%= f.input :content %>
-                  <%= f.input :rating %>
-                  <%= f.button :submit, "Review" %>
-                <% end %>
+        <div id="reviews">
+          <ul class="list-group">
+            <% if user_signed_in? %>
+              <% if (@projection.reviews & current_user.reviews).empty? && !(@projection.bookings & current_user.bookings).empty? %>
+                <li class="review-form list-group-item">
+                  <%= simple_form_for @new_review do |f| %>
+                    <%= f.error_notification %>
+                    <% @booking = Booking.where(user: current_user, projection: @projection).first %>
+                    <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
+                    <%= f.input :content %>
+                    <%= f.input :rating %>
+                    <%= f.button :submit, "Review" %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+            <% @reviews.each do |review| %>
+              <li class="review list-group-item">
+                <ul class="review list-group">
+                  <li class="list-group-item">
+                  <%= review.booking.user.first_name + " " + review.booking.user.last_name %>
+                  <% if !review.booking.user.photo? %>
+                  <%= image_tag "https://www.drupal.org/files/profile_default.jpg", class: "avatar-large" %>
+                  <% else %>
+                  <%= cl_image_tag review.booking.user.photo.path, height: 150, width: 150, crop: :fill, class: "avatar-large" %>
+                  <% end %>
+                  </li>
+                  <li class="list-group-item"><%= review.created_at %></li>
+                  <% if user_signed_in? && review.booking.user == current_user %>
+                    <li class="review-form list-group-item">
+                      <%= simple_form_for review do |f| %>
+                        <%= f.error_notification %>
+                        <%= f.input :id, as: :hidden, input_html: { value: review.id } %>
+                        <% @booking = Booking.where(user: current_user, projection: @projection).first %>
+                        <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
+                        <%= f.input :content %>
+                        <%= f.input :rating %>
+                        <%= f.button :submit, "Edit review" %>
+                      <% end %>
+                    </li>
+                  <% else %>
+                    <li class="list-group-item"><%= review.content %></li>
+                    <li class="list-group-item"><%= "X" * review.rating %></li>
+                  <% end %>
+                </ul>
+                </br>
               </li>
             <% end %>
-          <% end %>
-          <% @reviews.each do |review| %>
-            <li>
-              <ul>
-                <li><%= review.booking.user.first_name + " " + review.booking.user.last_name %></li>
-                <li><%= review.created_at %></li>
-                <% if user_signed_in? && review.booking.user == current_user %>
-                  <li>
-                    <%= simple_form_for review do |f| %>
-                      <%= f.error_notification %>
-                      <%= f.input :id, as: :hidden, input_html: { value: review.id } %>
-                      <% @booking = Booking.where(user: current_user, projection: @projection).first %>
-                      <%= f.input :booking_id, as: :hidden, input_html: { value: @booking.id } %>
-                      <%= f.input :content %>
-                      <%= f.input :rating %>
-                      <%= f.button :submit, "Edit review" %>
-                    <% end %>
-                  </li>
-                <% else %>
-                  <li><%= review.content %></li>
-                  <li><%= "X" * review.rating %></li>
-                <% end %>
-              </ul>
-              </br>
-            </li>
-          <% end %>
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
