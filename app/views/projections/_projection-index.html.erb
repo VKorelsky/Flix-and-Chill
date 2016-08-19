@@ -18,6 +18,7 @@
     <div>
       <h2><%= link_to projection.name, projection_path(projection) %></h2>
       <p><%= link_to projection.address, "https://www.google.fr/maps/search/#{projection.address}", target: "_blank"  %></p>
+      <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=400x300&sensor=false&maptype=roadmap&markers=color:red|#{projection.address}&key=AIzaSyBDgyF0G_Lqwti0wPDWzT6UmWkztTQPcoM", class: "hidden map-projection" %>
     </div>
   </div>
   <div class="booking text-center">
@@ -37,5 +38,4 @@
     <% end %>
   </div>
 </div>
-<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=400x300&sensor=false&maptype=roadmap&markers=color:red|#{projection.address}&key=AIzaSyBDgyF0G_Lqwti0wPDWzT6UmWkztTQPcoM" %>
 
