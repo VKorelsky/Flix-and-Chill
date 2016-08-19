@@ -1,4 +1,4 @@
-<%= simple_form_for :search, url: projections_path, method: :get, html: { class: "form-inline" } do |f| %>
+<%= simple_form_for :search, url: projections_path, method: :get, html: { class: "form-inline", id: "search" } do |f| %>
     <% if @query_location.nil? %>
     <%= f.input :location, html5: true, placeholder: "Choose a city...", label: false, input_html: { class: "input-lg", id: "search-input" } %>
     <% else %>
