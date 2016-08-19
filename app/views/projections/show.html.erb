@@ -31,16 +31,14 @@
           <%= cl_image_tag @projection.user.photo.path, height: 150, width: 150, crop: :fill, class: "avatar-large" %>
           <% end %>
         </h2>
-        <%= link_to "< All projections", projections_path %>
+        <%= link_to "All projections", projections_path, class: " btn-medium" %>
         <h3>Event <h4><%= @projection.date.day.to_s + " " %><%= Date::ABBR_MONTHNAMES[@projection.date.month] %>
         </h4></h3>
-        <h4><%= @projection.address %></h4><%= link_to "Show map", "#" %>
+        <br>
+        <h4><%= @projection.address %></h4><%= link_to "Show map", "#", class: "btn-medium" %>
         <div class="show-map hidden ">
           <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=214x160&sensor=false&maptype=roadmap&markers=color:red|#{@projection.address}&key=AIzaSyBDgyF0G_Lqwti0wPDWzT6UmWkztTQPcoM" %>
         </div>
-        <% if current_user == @projection.user %>
-          <%= link_to "Edit", edit_projection_path(@projection) %>
-        <% end %>
 
         <div class="participants">
           <h4 style="padding-right: 20px;">Capacity: <%= @projection.capacity %></h4>
