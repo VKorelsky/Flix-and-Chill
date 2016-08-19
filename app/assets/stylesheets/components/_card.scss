@@ -23,6 +23,8 @@
 
 .movie-image {
 
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   color: white;
 
   height: 100%;
@@ -58,13 +60,15 @@
 .projection{
   position: relative;
   width: 100%;
+  display: flex;
+  padding: 5px 10px;
 
-  div {
-    position: absolute;
+  // div {
+  //   position: absolute;
 
-    top: 10px;
-    left: 10px;
-  }
+  //   top: 10px;
+  //   left: 10px;
+  // }
 
   h2, p {
     padding: 0px;
@@ -74,7 +78,37 @@
 }
 
 .map-projection {
-  width: 50px;
+  flex: 0 0 20%;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  opacity: 1;
+  transition: ease 0.1s;
+  position: relative;
+
+  img {
+    width: 100%;
+    border-radius: 5px;
+    position: absolute;
+    top: 7px;
+  }
+  span {
+    color: grey;
+    opacity: 0;
+    position: absolute;
+    top: 45px;
+  }
+  &:hover {
+    opacity: 0.4;
+  }
+
+  &:hover span {
+    opacity: 1;
+  }
+}
+
+.projection-details {
+  flex: 0 0 80%;
 }
 
 .booking{
