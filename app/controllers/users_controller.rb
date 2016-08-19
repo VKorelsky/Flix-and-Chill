@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @past_projections= @user.projections.where("date < ?", Date.today).order(date: :desc)
     @future_bookings= find_by_date(@user.bookings.all, "past_bookings")
     @past_bookings= find_by_date(@user.bookings.all, "future_bookings")
+    raise
 
     @future_activity= [@future_projections, @future_bookings].flatten
     @past_activity = [@past_projections, @past_bookings].flatten
