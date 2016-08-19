@@ -20,11 +20,25 @@
     <div class="projection-details">
       <h2><%= link_to projection.name, projection_path(projection) %></h2>
       <p><%= link_to projection.address, "https://www.google.fr/maps/search/#{projection.address}", target: "_blank"  %></p>
+      <div class="participants">
+        <% if !projection.bookings.empty? %>
+          <% projection.bookings[0..5].each do |booking| %>
+            <% if !booking.user.photo? %>
+            <%= image_tag "https://www.drupal.org/files/profile_default.jpg", class: "avatar-large" %>
+            <% else %>
+            <%= cl_image_tag booking.user.photo.path, height: 150, width: 150, crop: :fill, class: "avatar-large" %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <div>
+          <%= "#{projection.capacity - projection.bookings.length} tickets are style available" %>
+        </div>
+      </div>
     </div>
-  <%= link_to "https://www.google.fr/maps/search/#{projection.address}", target: "_blank", class: "map-projection" do %>
-    <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=214x160&sensor=false&maptype=roadmap&markers=color:red|#{projection.address}&key=AIzaSyBDgyF0G_Lqwti0wPDWzT6UmWkztTQPcoM" %>
-    <span>Show directions</span>
-  <% end %>
+      <%= link_to "https://www.google.fr/maps/search/#{projection.address}", target: "_blank", class: "map-projection" do %>
+        <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=214x160&sensor=false&maptype=roadmap&markers=color:red|#{projection.address}&key=AIzaSyBDgyF0G_Lqwti0wPDWzT6UmWkztTQPcoM" %>
+      <span>Show directions</span>
+    <% end %>
   </div>
   <div class="booking text-center">
     <h2><!-- TODO: projection.start_time -->20:00</h2>
