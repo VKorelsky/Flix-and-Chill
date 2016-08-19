@@ -13,6 +13,11 @@
       color: white;
       border-top: 4px solid white !important;
     }
+    &:focus{
+    outline: none;
+    outline-offset: 0px;
+    color: white;
+    }
 }
 
 .subtle-btn {
