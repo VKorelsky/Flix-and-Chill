@@ -70,6 +70,18 @@
   //   left: 10px;
   // }
 
+  .participants {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    img {
+      margin-right: 10px;
+    }
+  }
+
   h2, p {
     padding: 0px;
     margin: 0px;

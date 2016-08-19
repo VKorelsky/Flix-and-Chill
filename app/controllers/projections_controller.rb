@@ -45,6 +45,7 @@ class ProjectionsController < ApplicationController
     @projection = Projection.new(projection_params)
     @projection.user = current_user
     @projection.save
+    booking = Booking.create(projection: @projection, user: current_user, status: "accepted")
     redirect_to projection_path(@projection)
   end
 
