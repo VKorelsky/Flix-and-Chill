@@ -1,10 +1,10 @@
 <%= simple_form_for :search, url: projections_path, method: :get, html: { class: "form-inline" } do |f| %>
     <% if @query_location.nil? %>
-    <%= f.input :location, html5: true, placeholder: "Choose a city...", label: false, input_html: { class: "input-lg" } %>
+    <%= f.input :location, html5: true, placeholder: "Choose a city...", label: false, input_html: { class: "input-lg", id: "search-input" } %>
     <% else %>
-    <%= f.input :location, html5: true, placeholder: "Choose a city...", label: false, input_html: { class: "input-lg", value: @query_location }%>
+    <%= f.input :location, html5: true, placeholder: "Choose a city...", label: false, input_html: { class: "input-lg", id: "search-input", value: @query_location }%>
     <% end %>
     <%= f.input :first_day, as: :hidden, html5: true, label: false  %>
     <%= f.input :last_day, as: :hidden, html5: true, label: false  %>
-    <%= f.submit "Search", class: "btn btn-danger btn-lg"%>
+    <%= f.submit "Search", class: "btn btn-danger btn-lg", id: "search-submit" %>
 <% end %>
