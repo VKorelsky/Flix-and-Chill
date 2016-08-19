@@ -2,20 +2,20 @@
   <div class="container">
 
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-xs-6 col-xs-offset-3 text-center form-title">
         <h2>Edit your projection</h2>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-xs-6 col-xs-offset-3 form">
         <%= simple_form_for(@projection) do |f| %>
           <%= f.error_notification %>
 
           <%= f.input :name %>
           <%= f.input :movie %>
           <%= f.input :address %>
-          <%= f.input :date %>
+          <%= f.input :date, order: [:day, :month, :year]%>
           <%= f.input :capacity %>
           <%= f.input :photo, as: :attachinary %>
           <% if @projection.photo? %>

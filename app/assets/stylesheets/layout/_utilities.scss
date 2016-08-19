@@ -84,3 +84,30 @@
   min-height: 80vh;
   margin-bottom: 120px;
 }
+
+.form {
+  color: #333333;
+  font-weight: lighter;
+  background-color: white;
+  padding: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  position: relative;
+  min-height: 75vh;
+  h2 {
+    font-size: 24px;
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+  p {
+    font-size: 18px;
+  }
+}
+
+.form-title {
+  font-size: 22px;
+  color: $gray-dark;
+  border-top: 4px solid $red !important;
+}
