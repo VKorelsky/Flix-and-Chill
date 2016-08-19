@@ -24,9 +24,13 @@
         <% if !projection.bookings.empty? %>
           <% projection.bookings[0..5].each do |booking| %>
             <% if !booking.user.photo? %>
-            <%= image_tag "https://www.drupal.org/files/profile_default.jpg", class: "avatar-large" %>
+              <%= link_to user_path(booking.user) do %>
+                <%= image_tag "https://www.drupal.org/files/profile_default.jpg", class: "avatar-large" %>
+              <% end %>
             <% else %>
-            <%= cl_image_tag booking.user.photo.path, height: 150, width: 150, crop: :fill, class: "avatar-large" %>
+             <%= link_to user_path(booking.user) do %>
+              <%= cl_image_tag booking.user.photo.path, height: 150, width: 150, crop: :fill, class: "avatar-large" %>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
