@@ -44,8 +44,11 @@ class ProjectionsController < ApplicationController
   def create
     @projection = Projection.new(projection_params)
     @projection.user = current_user
-    @projection.save
-    redirect_to projection_path(@projection)
+    if @projection.save
+      redirect_to projection_path(@projection)
+    else
+      render :new
+    end
   end
 
   def edit
@@ -54,8 +57,11 @@ class ProjectionsController < ApplicationController
 
   def update
     set_projections
-    @projection.update(projection_params)
-    redirect_to projection_path(@projection)
+    if @projection.update(projection_params)
+      redirect_to projection_path(@projection)
+    else
+      render :edit
+    end
   end
 
   private
