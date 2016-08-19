@@ -13,8 +13,10 @@
           <!-- Profile Age and Name -->
           <h4 class="absolute-bottom"><%= @user.first_name %></h4>
           <p><%= @user_age_in_days %> days old</p>
-          <%= link_to edit_user_path(current_user), class: "btn btn-default absolute-bottom" do %>
-          <i class="fa fa-pencil" aria-hidden="true"></i>
+          <% if current_user == @user %>
+            <%= link_to edit_user_path(current_user), class: "btn btn-default absolute-bottom" do %>
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            <% end %>
           <% end %>
       </div>
 

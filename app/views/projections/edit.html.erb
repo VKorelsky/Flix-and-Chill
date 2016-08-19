@@ -12,10 +12,10 @@
         <%= simple_form_for(@projection) do |f| %>
           <%= f.error_notification %>
 
-          <%= f.input :name %>
+          <%= f.input :name, required: true %>
           <%= f.input :movie %>
           <%= f.input :address %>
-          <%= f.input :date, order: [:day, :month, :year]%>
+          <%= f.input :starts_at, :as => :string, :input_html => { data: {behaviour: "datepicker"}} %>
           <%= f.input :capacity %>
           <%= f.input :photo, as: :attachinary %>
           <% if @projection.photo? %>

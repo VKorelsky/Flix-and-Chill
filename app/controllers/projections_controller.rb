@@ -2,30 +2,28 @@ class ProjectionsController < ApplicationController
   def index
     today = Date.today
     @projections = Projection.where("date >= ?", today).order(date: :desc)
-    @query_location = params[:search][:location]
+    if params[:search].nil?
+      @proposed_projections = @projections
+      @found_projections = []
+    else
+      @query_location = params[:search][:location]
+      if !(params[:search].nil?)
+        @found_projections = Projection.near(@query_location, 50)
 
-    if !(params[:search].nil?)
-      @found_projections = Projection.near(@query_location, 50)
+        if @found_projections.empty?
+          @proposed_projections = @projections
+        end
 
-      if @found_projections.empty?
+        @searched_location = @query_location
+
+        if result_geocoder = Geocoder.search(@searched_location).first
+          if hash_locality = result_geocoder.address_components.find { |item| item["types"].first == "locality"  }
+              @searched_location = hash_locality["long_name"]
+          end
+        end
+      else
         @proposed_projections = @projections
       end
-
-      @searched_location = @query_location
-
-      if result_geocoder = Geocoder.search(@searched_location).first
-        if hash_locality = result_geocoder.address_components.find { |item| item["types"].first == "locality"  }
-            @searched_location = hash_locality["long_name"]
-        end
-      end
-    else
-      @proposed_projections = @projections
-    end
-
-    @hash = Gmaps4rails.build_markers(@proposed_projections) do |projection, marker|
-      marker.lat projection.latitude
-      marker.lng projection.longitude
-      # marker.infowindow render_to_string(partial: "/flats/map_box", locals: { flat: flat })
     end
 
     @new_booking = Booking.new
@@ -44,9 +42,12 @@ class ProjectionsController < ApplicationController
   def create
     @projection = Projection.new(projection_params)
     @projection.user = current_user
-    @projection.save
-    booking = Booking.create(projection: @projection, user: current_user, status: "accepted")
-    redirect_to projection_path(@projection)
+    if @projection.save
+      booking = Booking.create(projection: @projection, user: current_user, status: "accepted")
+      redirect_to projection_path(@projection)
+    else
+      render :new
+    end
   end
 
   def edit
@@ -55,8 +56,11 @@ class ProjectionsController < ApplicationController
 
   def update
     set_projections
-    @projection.update(projection_params)
-    redirect_to projection_path(@projection)
+    if @projection.update(projection_params)
+      redirect_to projection_path(@projection)
+    else
+      render :edit
+    end
   end
 
   private

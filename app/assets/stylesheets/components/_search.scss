@@ -1,3 +1,7 @@
+#search {
+  margin-top: 10px;
+}
+
 #search-input {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
@@ -12,4 +16,7 @@
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   margin-left: 0;
+  padding: 0px 16px;
+  height: 49px;
+  margin-left: -3px
 }

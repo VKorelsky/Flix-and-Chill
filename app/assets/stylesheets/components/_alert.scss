@@ -6,10 +6,18 @@
   margin: 0;
   text-align: center;
   color: white;
+  background-color: inherit;
+  border: none;
+  font-weight: lighter;
 }
 .alert-info {
-  background: $green;
+  color: #27ae60;
 }
+
 .alert-warning {
-  background: $red;
+  color: $red;
+}
+
+.alert-dismissible {
+  color: black;
 }
