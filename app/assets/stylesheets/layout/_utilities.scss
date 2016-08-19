@@ -113,3 +113,12 @@
   color: $gray-dark;
   border-top: 4px solid $red !important;
 }
+
+  .participants {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    img {
+      margin-right: 10px;
+    }
+  }

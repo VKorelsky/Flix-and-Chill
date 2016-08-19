@@ -18,7 +18,7 @@
   </div>
   <div class="projection">
     <div class="projection-details">
-      <h2><%= link_to projection.name, projection_path(projection) %></h2>
+      <div class="title"><%= link_to projection.name, projection_path(projection) %></div>
       <p><%= link_to projection.address, "https://www.google.fr/maps/search/#{projection.address}", target: "_blank"  %></p>
       <div class="participants">
         <% if !projection.bookings.empty? %>
