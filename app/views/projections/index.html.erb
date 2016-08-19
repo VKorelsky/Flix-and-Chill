@@ -20,39 +20,9 @@
       <div class="text-center"><%= render "search-form" %></div>
       <div style="height: 60px"></div>
       <h3 class="text-center">or browse upcoming projections elsewhere:</h3>
-
-      <% @proposed_projections.each_with_index do |projection| %>
+      <% @proposed_projections.each do |projection| %>
         <%= render "projection-index", projection: projection %>
-        <%= raise %>
-
       <% end %>
     <% end %>
   </div>
 </div>
-
-<% content_for(:after_js) do %>
-  <script>
-    $(document).on('ready', function() {
-      var style = [{"elementType":"geometry","stylers":[{"hue":"#ff4400"},{"saturation":-68},{"lightness":-4},{"gamma":0.72}]},{"featureType":"road","elementType":"labels.icon"},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"hue":"#0077ff"},{"gamma":3.1}]},{"featureType":"water","stylers":[{"hue":"#00ccff"},{"gamma":0.44},{"saturation":-33}]},{"featureType":"poi.park","stylers":[{"hue":"#44ff00"},{"saturation":-23}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"hue":"#007fff"},{"gamma":0.77},{"saturation":65},{"lightness":99}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"gamma":0.11},{"weight":5.6},{"saturation":99},{"hue":"#0091ff"},{"lightness":-86}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"lightness":-48},{"hue":"#ff5e00"},{"gamma":1.2},{"saturation":-23}]},{"featureType":"transit","elementType":"labels.text.stroke","stylers":[{"saturation":-64},{"hue":"#ff9100"},{"lightness":16},{"gamma":0.47},{"weight":2.7}]}]
-      var projectionIds = JSON.parse('<%= @proposed_projections.map(&:id) %>');
-      projectionIds.forEach(function(id) {
-        var handler = Gmaps.build('Google');
-        handler.buildMap({ provider: { styles: style }, internal: { id: 'map_' + id } }, function() {
-          markers = handler.addMarkers([
-            {
-              "lat": Number($("#map_" + id ).data("lat")),
-              "lng": Number($("#map_" + id ).data("lng")),
-            }
-          ]);
-          handler.bounds.extendWith(markers);
-          handler.fitMapToBounds();
-          if (markers.length == 0) {
-            handler.getMap().setZoom(2);
-          } else if (markers.length == 1) {
-            handler.getMap().setZoom(14);
-          }
-        });
-      })
-    });
-  </script>
-<% end %>
