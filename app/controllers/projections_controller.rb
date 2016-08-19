@@ -33,6 +33,7 @@ class ProjectionsController < ApplicationController
     set_projections
     @reviews = @projection.reviews
     @new_review = Review.new
+    @new_booking = Booking.new
   end
 
   def new
