@@ -1,1 +1,4 @@
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+<h1> Flix&Chill </h1>
+
+A rails marketplace made in a week. <br>
+Easily create events of projections and invite your friends to them.
