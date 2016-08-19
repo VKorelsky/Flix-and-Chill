@@ -7,25 +7,20 @@
           <div>
           <%= cl_image_tag @projection.photo.path, width: 160, height: 240, crop: :fill, id: "margin-image" %>
           </div>
-        <% if @projection.user_id == current_user.id %>
-        <%= link_to "Edit" , edit_projection_path(@projection), class: 'btn btn-default', style: "margin-top: 20px"%>
-        <% elsif (@projection.bookings & current_user.bookings).empty? %>
-            <%= simple_form_for @new_booking do |f| %>
-            <%= f.input :projection_id, as: :hidden, input_html: { value: @projection.id } %>
-            <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>
-            <%= f.button :submit, "Participate", class:"btn btn-danger", style: "margin-top: 20px" %>
+          <% if @projection.user_id == current_user.id %>
+          <%= link_to "Edit" , edit_projection_path(@projection), class: 'btn btn-default', style: "margin-top: 20px"%>
+          <% elsif (@projection.bookings & current_user.bookings).empty? %>
+              <%= simple_form_for @new_booking do |f| %>
+              <%= f.input :projection_id, as: :hidden, input_html: { value: @projection.id } %>
+              <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>
+              <%= f.button :submit, "Participate", class:"btn btn-danger", style: "margin-top: 20px" %>
+            <% end %>
+          <% else %>
+            <p style="margin-top: 20px;">Ticket taken !</p>
           <% end %>
-        <% else %>
-          <p style="margin-top: 20px;">Ticket taken !</p>
         <% end %>
-
-
-
-
-          <%# link_to "Get a ticket", "#", class: "btn btn-danger", style: "margin-top: 20px; " %>
-
-
-        <% end %>
+          <h4>Sits left:</h4>
+          <%= @projection.capacity - @projection.bookings.length %>
       </div>
       <div class="col-xs-12 col-sm-8">
         <h2>
@@ -37,17 +32,19 @@
           <% end %>
         </h2>
         <%= link_to "< All projections", projections_path %>
-        <h4><%= @projection.address %></h4>
-        <div class="show-map">        <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=214x160&sensor=false&maptype=roadmap&markers=color:red|#{@projection.address}&key=AIzaSyBDgyF0G_Lqwti0wPDWzT6UmWkztTQPcoM" %>
+        <h3>Event <h4><%= @projection.date.day.to_s + " " %><%= Date::ABBR_MONTHNAMES[@projection.date.month] %>
+        </h4></h3>
+        <h4><%= @projection.address %></h4><%= link_to "Show map", "#" %>
+        <div class="show-map hidden ">
+          <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=214x160&sensor=false&maptype=roadmap&markers=color:red|#{@projection.address}&key=AIzaSyBDgyF0G_Lqwti0wPDWzT6UmWkztTQPcoM" %>
         </div>
         <% if current_user == @projection.user %>
           <%= link_to "Edit", edit_projection_path(@projection) %>
         <% end %>
-        <h4><%= @projection.date.day.to_s + " " %><%= Date::ABBR_MONTHNAMES[@projection.date.month] %></h4>
-        <h4>Capacity: <%= @projection.capacity %></h4>
-        <h4>Places restantes: <%= @projection.capacity - @projection.bookings.length %></h4>
-        <h4>Participants:</h4>
+
         <div class="participants">
+          <h4 style="padding-right: 20px;">Capacity: <%= @projection.capacity %></h4>
+          <h4 style="padding-right: 20px;">Participants: </h4>
           <% @projection.bookings.each do |booking| %>
             <% if !booking.user.photo? %>
             <%= image_tag "https://www.drupal.org/files/profile_default.jpg", class: "avatar-large" %>
@@ -56,6 +53,7 @@
             <% end %>
           <% end %>
         </div>
+        <h3>Reviews</h3>
         <div id="reviews">
           <ul class="list-group">
             <% if user_signed_in? %>
