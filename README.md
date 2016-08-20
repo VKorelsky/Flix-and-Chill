@@ -2,3 +2,5 @@
 
 A rails marketplace made in a week. <br>
 Easily create events of projections and invite your friends to them.
+
+http://flixnchill.herokuapp.com/
