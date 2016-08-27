@@ -7,17 +7,22 @@
           <div>
           <%= cl_image_tag @projection.photo.path, width: 160, height: 240, crop: :fill, id: "margin-image" %>
           </div>
-          <% if @projection.user_id == current_user.id %>
-          <%= link_to "Edit" , edit_projection_path(@projection), class: 'btn btn-default', style: "margin-top: 20px"%>
-          <% elsif (@projection.bookings & current_user.bookings).empty? %>
-              <%= simple_form_for @new_booking do |f| %>
-              <%= f.input :projection_id, as: :hidden, input_html: { value: @projection.id } %>
-              <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>
-              <%= f.button :submit, "Participate", class:"btn btn-danger", style: "margin-top: 20px" %>
+          <% if user_signed_in?  %>
+            <% if @projection.user_id == current_user.id %>
+              <%= link_to "Edit" , edit_projection_path(@projection), class: 'btn btn-default', style: "margin-top: 20px"%>
+            <% elsif (@projection.bookings & current_user.bookings).empty? %>
+                <%= simple_form_for @new_booking do |f| %>
+                <%= f.input :projection_id, as: :hidden, input_html: { value: @projection.id } %>
+                <%= f.input :url, as: :hidden, input_html: { value: request.original_url } %>
+                <%= f.button :submit, "Participate", class:"btn btn-danger", style: "margin-top: 20px" %>
+              <% end %>
+            <% else %>
+              <p style="margin-top: 20px;">Ticket taken !</p>
             <% end %>
           <% else %>
-            <p style="margin-top: 20px;">Ticket taken !</p>
+            <a href="#" class="btn btn-default spaced" data-toggle="modal" data-target=".sign-up-modal">Sign up to join</a>
           <% end %>
+
         <% end %>
           <h4>Sits left:</h4>
           <%= @projection.capacity - @projection.bookings.length %>
