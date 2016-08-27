@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :authenticate_user!, only: :show
+
   def show
     @user = User.find(params[:id])
     @user_age_in_days = age_in_days(@user.birth_date)
