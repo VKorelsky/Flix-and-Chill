@@ -1,4 +1,6 @@
 class ProjectionsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
   def index
     today = Date.today
     @projections = Projection.where("date >= ?", today).order(date: :desc)
