@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 20160818092629) do
     t.string   "last_name"
     t.text     "description"
     t.date     "birth_date"
+    t.string   "provider"
+    t.string   "uid"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
