@@ -1,9 +1,10 @@
 .projection-card{
-  margin: 15px;
-  height: 130px;
+  margin: 40px;
+  height: 129px;
   background-color: white;
   box-shadow: 0px 1px 0px 1px rgba(158, 158, 158, 0.5);
-  border-radius: 4px;
+  border-radius: 8px;
+
 
   h2 {
     font-size: 18px;
@@ -34,24 +35,21 @@
   .movie-date {
   margin: 0;
   position: absolute;
-
   bottom: 10px;
   left: 10px;
-
   padding: 5px;
   border: 2px solid white;
   border-radius: 2px;
-
-  p{
-    padding: 0px;
-    margin: 0px;
-  }
+  width: 55px;
+    p{
+      padding: 0px;
+      margin: 0px;
+      font-size: 15px;
+    }
   }
   h2 {
     margin: 0;
-
     position: absolute;
-
     top: 10px;
     left: 10px;
   }
@@ -74,12 +72,13 @@
     a {
       font-size: 1.1em;
       font-weight: bolder;
-      color: black;
+      color: $gray-dark;
       text-decoration: none;
       transition: all 0.5s ease;
     }
     & a:hover{
       border-bottom: 1px solid $red;
+      text-decoration: none;
     }
   }
 
@@ -114,10 +113,11 @@
   position: relative;
 
   img {
-    width: 100%;
+    width: 105%;
     border-radius: 5px;
     position: absolute;
     top: 7px;
+    right: 15px;
   }
   span {
     color: black;
@@ -140,6 +140,9 @@
 
 .projection-details {
   flex: 0 0 80%;
+  p {
+    color: $gray-dark;
+  }
 }
 
 .booking{
