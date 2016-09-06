@@ -1,0 +1,25 @@
+<div class="modal fade sign-up-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+          <h3 class="text-center">Sign up</h3>
+           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= f.error_notification %>
+
+          <!-- TODO: Birth date issue -->
+          <div class="form-inputs">
+            <%= f.input :first_name, required: true, autofocus: true %>
+            <%= f.input :last_name, required: true %>
+            <%= f.input :birth_date, required: true, as: :date, end_year: Date.today.year - 90,
+                              order: [:day, :month, :year] %>
+            <%= f.input :email, required: true %>
+            <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+            <%= f.input :password_confirmation, required: true %>
+          </div>
+
+          <div class="form-actions text-center" >
+            <%= f.button :submit, "Sign up", class: "btn btn-danger btn-lg" %> <br>
+        <% end %>
+          </div>
+          </div>
+      </div>
+      </div>

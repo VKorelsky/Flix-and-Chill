@@ -1,7 +1,7 @@
 <div class="container padded">
     <div class="row">
     <!-- user info -->
-      <div class="col-xs-12 col-sm-3 col-sm-offset-1 text-center profile-tab">
+      <div class="col-xs-12 col-sm-3 col-sm-offset-1 text-center profile-tab overline">
         <!-- Profile photo -->
         <div>
           <% if @user.photo? %>
@@ -21,7 +21,7 @@
       </div>
 
       <!-- Projection info -->
-      <div class="col-xs-12 col-sm-7 projection-scroll">
+      <div class="col-xs-12 col-sm-8 projection-scroll">
         <div class="tab">
       <!-- Header -->
           <% if current_user == @user %>
