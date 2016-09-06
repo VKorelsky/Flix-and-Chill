@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users,
+  devise_for :users
 
   resources :projections, only: [:new, :create, :show, :index, :edit, :update]
   resources :bookings, only: [:create]
