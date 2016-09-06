@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users,
+  # For Facebook connect
+  controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   resources :projections, only: [:new, :create, :show, :index, :edit, :update]
   resources :bookings, only: [:create]
@@ -9,4 +11,5 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # For attachinary
   mount Attachinary::Engine => "/attachinary"
+
 end

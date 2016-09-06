@@ -20,6 +20,10 @@ class User < ApplicationRecord
   # send welcome mail
   # after_create :send_welcome_email
 
+
+  # Facebook connect
+  devise :omniauthable, omniauth_providers: [:facebook]
+
   private
 
   # send welcome mail
