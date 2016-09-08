@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @user_age_in_days = age_in_days(@user.birth_date)
+    @user_age_in_years = age(@user.birth_date)
 
     # raise to check date.today format
     @future_projections= @user.projections.where("date >= ?", Date.today).order(date: :desc)
@@ -50,7 +50,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :birth_date, :projections, :email, :photo)
   end
 
-  def age_in_days(birth_date)
-    (Date.today - birth_date).to_i
+  def age(birth_date)
+    now = Time.now.utc.to_date
+    now.year - birth_date.year - ((now.month > birth_date.month || (now.month == birth_date.month && now.day >= birth_date.day)) ? 0 : 1)
   end
 end
